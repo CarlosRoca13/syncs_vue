@@ -31,7 +31,6 @@ data () {
 mounted () {
     this.$http.get('http://localhost:3000/clients')
       .then(response => (this.info = response.data[0].clientid))
-  }
 }
 
 # Como mostrarlo en el HTML (En este caso devuelve el id del primer cliente)
@@ -45,7 +44,6 @@ mothods: {
         this.$http.get('http://localhost:3000/clients')
             .then(response => (this.info = response.data[0].clientid))
   }
-    }
 }
 - Para llamar al metodo podemos hacer uso de lo siguiente:
 <button v-on:click="unaFuncion">Enviar</button>
