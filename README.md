@@ -41,8 +41,16 @@ mounted () {
 - Cuando se quiera lanzar a voluntad se usarán funciones que se declaran a continuación de data() usando methods de la siguente forma:
 mothods: {
     unaFuncion() {
-        this.$http.get('http://localhost:3000/clients')
-            .then(response => (this.info = response.data[0].clientid))
+        this.$http.post('http://localhost:3000/clients', {
+            name: 'Carlos',
+            lastname: 'Roca',
+            email: 'al361876@uji.es',
+            clientname: 'croca',
+            password: 'alguna',
+            verified: 'F',
+            avatar: 'foto.png',
+            birthday: '10-03-1998'
+        }).then(console.log('Done'))
   }
 }
 - Para llamar al metodo podemos hacer uso de lo siguiente:
