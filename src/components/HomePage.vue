@@ -12,7 +12,7 @@ export default {
   },
   mounted () {
     this.$http.get('http://localhost:3000/clients')
-      .then(response => (this.info = response.data[0].clientid))
+      .then(response => (this.info = response.data[0].clientid)) // Devuelve el id del primer ciente
   }
 }
 </script>
