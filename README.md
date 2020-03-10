@@ -25,26 +25,26 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 # Las siguientes lineas van dentro de script y de export default en cada componente
 data () {
     return {
-        info: null
+        clientid: null
     }
 },
 mounted () {
-    axios
-        .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-        .then(response => (this.info = response))
+    this.$http.get('http://localhost:3000/clients')
+      .then(response => (this.info = response.data[0].clientid))
+  }
 }
 
-# Como mostrarlo en el HTML
-{{ info }}
+# Como mostrarlo en el HTML (En este caso devuelve el id del primer cliente)
+{{ clientid }}
 
 #NOTAS
 - No siempre debe ir dentro de mounted, esto se ejecuta al montar el componente
 - Cuando se quiera lanzar a voluntad se usarán funciones que se declaran a continuación de data() usando methods de la siguente forma:
 mothods: {
     unaFuncion() {
-        axios
-            .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-            .then(response => (this.info = response))
+        this.$http.get('http://localhost:3000/clients')
+            .then(response => (this.info = response.data[0].clientid))
+  }
     }
 }
 - Para llamar al metodo podemos hacer uso de lo siguiente:

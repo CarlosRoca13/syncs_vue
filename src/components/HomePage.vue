@@ -1,5 +1,5 @@
 <template>
-<div>{{msg}}</div>
+<div>{{info}}</div>
 </template>
 
 <script>
@@ -7,8 +7,12 @@ export default {
   name: 'HomePage',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      info: null
     }
+  },
+  mounted () {
+    this.$http.get('http://localhost:3000/clients')
+      .then(response => (this.info = response.data[0].clientid))
   }
 }
 </script>
