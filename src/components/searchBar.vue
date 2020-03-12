@@ -1,15 +1,16 @@
 <template>
-    <div id="search-bar">
-        <input type="text" v-model="search" placeholder="Introduce un término"/>
+    <div id="search-bar" class="search-bar">
+        <v-text-field v-model="message4" label="Search..." solo clearable style="height:24px" background-color="grey darken-3"></v-text-field>
         <div v-for="elem in query" v-bind:key="elem.id" class="single-elem">
-            <h2>{{elem.title | to-uppercase}}</h2>
-            <sheet>{{elem.body | snippet}}</sheet>
+            <h2>{{elem.id | to-uppercase}}</h2>
+            <sheet>{{elem.name| snippet}}</sheet>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    name: 'SearchBar',
     data(){
         return{
             query: [],
@@ -33,3 +34,10 @@ export default {
     }
 }
 </script>
+
+<style>
+.search-bar {
+  margin-bottom: 24px;
+  width: 300px;
+}
+</style>

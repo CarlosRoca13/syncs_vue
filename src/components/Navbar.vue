@@ -6,10 +6,9 @@
       <v-toolbar-title>Syncs</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <div class="searchbar">
-        <v-text-field v-model="message4" label="Search..." solo clearable style="height:24px" background-color="grey darken-3"></v-text-field>
-      </div>
+      
+      <SearchBar/>
+      
 
       <v-spacer></v-spacer>
       <v-btn text>Login</v-btn>
@@ -24,7 +23,11 @@
 </template>
 
 <script>
+import SearchBar from './searchBar'
 export default {
+   components: {
+    SearchBar
+  },
   data() {
     return {
       drawer: false
@@ -32,10 +35,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.searchbar {
-  margin-bottom: 24px;
-  width: 300px;
-}
-</style>
