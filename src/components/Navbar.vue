@@ -8,15 +8,7 @@
       <v-spacer></v-spacer>
 
       <div class="searchbar">
-        <v-text-field
-          v-model="message4"
-          label="Search..."
-          solo
-          clearable
-          style="height:24px"
-          background-color="grey darken-3"
-          append-icon="search"
-        ></v-text-field>
+        <SearchBar/>
       </div>
 
       <v-spacer></v-spacer>
@@ -65,10 +57,10 @@ export default {
 </script>
 
 <style>
-.searchbar {
+/* .searchbar {
   margin-bottom: 24px;
   width: 300px;
-}
+} */
 .logo{
   margin-left: 20px;
   margin-top: 15px;
