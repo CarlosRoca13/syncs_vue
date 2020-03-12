@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-btn @click="peticionPost">
-        click
-    </v-btn>
+    
   </v-app>
 </template>
 
