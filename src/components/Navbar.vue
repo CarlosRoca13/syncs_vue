@@ -46,6 +46,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -56,7 +57,7 @@ export default {
         { title: "Playlists", icon: "queue_music" }
       ]
     };
-  }
+  },
 };
 </script>
 
