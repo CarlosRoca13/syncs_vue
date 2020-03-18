@@ -19,7 +19,7 @@
 
     <v-navigation-drawer app v-model="drawer" dark>
       <div class="logo">
-      <v-img src="../assets/syncs.png" width="200"></v-img>
+      <a href="/"><v-img src="../assets/syncs.png" width="200"></v-img></a>
       </div>
 
       <v-list class="menu-lateral">
