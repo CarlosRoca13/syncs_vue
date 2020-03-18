@@ -4,6 +4,8 @@ import router from './router'
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = `http://localhost:3000`

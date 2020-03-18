@@ -52,7 +52,7 @@ export default {
         { title: "Playlists", icon: "queue_music" }
       ]
     };
-  }
+  },
 };
 </script>
 
