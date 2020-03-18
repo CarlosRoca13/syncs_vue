@@ -9,9 +9,9 @@
           background-color="grey darken-3"
           append-icon="search"
         ></v-text-field>
-        <div v-for="elem in query" v-bind:key="elem.id" class="single-elem">
-            <h2>{{elem.id | to-uppercase}}</h2>
-            <sheet>{{elem.name| snippet}}</sheet>
+        <div v-for="item in filteredData" v-bind:key="item.id" class="single-item">
+            <h2>{{item.id | to-uppercase}}</h2>
+            <sheet>{{item.name | snippet}}</sheet>
         </div>
     </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     data(){
         return{
             query: [],
-            search: ''
+            message4: ''
         }
     },
     methods:{
@@ -35,8 +35,8 @@ export default {
     },
     computed:{
         filteredData: function(){
-            return this.query.filter((elem) => {
-                return elem.title.match(this.search);
+            return this.query.filter((item) => {
+                return item.name.match(this.message4);
             });
         }
     }
