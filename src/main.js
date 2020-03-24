@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = `http://localhost:3000`
+axios.defaults.baseURL = `http://localhost:8000`
 Vue.prototype.$http = axios
 
 Vue.filter('to-uppercase', function(value){
