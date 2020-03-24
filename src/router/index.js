@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import Upload from '../components/Upload.vue'
 import Sheets from '../views/Sheets'
 import SingleSheet from '../components/SingleSheet.vue'
+import Login from "../views/Login.vue"
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,14 @@ const routes = [
   {
     path: '/upload',
     name: 'Upload',
-    component: Upload
+    component: Upload,
+    beforeEnter: (to, from, next) => {
+      if(store.state.authenticated == false) {
+        next("/login");
+      } else {
+        next();
+      }
+    }
   },
   {
     path: '/sheets',
@@ -27,6 +35,11 @@ const routes = [
     path: '/sheets/:id',
     name: 'SingleSheet',
     component: SingleSheet
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
   }
 ]
 

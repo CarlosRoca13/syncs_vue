@@ -12,7 +12,7 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-btn text>Login</v-btn>
+      <v-btn text v-on:click="login()">Login</v-btn>
 
       <v-btn outlined>Sign Up</v-btn>
     </v-app-bar>
@@ -53,6 +53,11 @@ export default {
       ]
     };
   },
+  methods:{
+    login(){
+      this.$router.replace({ name: "login" });
+    }
+  }
 };
 </script>
 
