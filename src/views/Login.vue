@@ -43,7 +43,7 @@
             login() {
                 if(this.input.username == "admin" && this.input.password == "pass") {
 					this.$store.commit("setAuthentication", true);
-					this.$router.replace({ name: "secure" });
+					this.$router.replace({ name: "upload" });
                 } else {
                     console.log("The username and / or password is incorrect");
                 }
