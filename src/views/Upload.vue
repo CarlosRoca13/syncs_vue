@@ -37,7 +37,7 @@ export default {
       instruments: ["Piano", "Guitar", "Battery", "Trumpet"],
       effects: ["None", "Item 2", "Item 3", "Item 4"],
       sheetinstrument: {
-        sheetid: this.$route.params.id, //TO-DO: Ver el parametro que se pasa
+        sheetid: this.$route.params.id,
         instruments: null,
         effects: null,
         pdf: null
