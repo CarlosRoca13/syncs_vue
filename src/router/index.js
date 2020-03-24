@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Upload from '../views/Upload.vue'
+import Sheets from '../views/Sheets'
+import SingleSheet from '../components/SingleSheet.vue'
 
 Vue.use(VueRouter)
 
@@ -14,8 +16,17 @@ const routes = [
   {
     path: '/upload/:id',
     name: 'Upload',
-    component: Upload,
-    props: true
+    component: Upload
+  },
+  {
+    path: '/sheets',
+    name: 'Sheets',
+    component: Sheets
+  },
+  {
+    path: '/sheets/:id',
+    name: 'SingleSheet',
+    component: SingleSheet
   }
 ]
 
