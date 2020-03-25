@@ -11,18 +11,18 @@ import Vuex from "vuex"
 Vue.use(VueRouter)
 
 Vue.use(Vuex);
-const store = new Vuex.Store(
-  {
-    state: {
-      authenticated: false
-    },
-    mutations: {
-      setAuthentication(state, status) {
-        state.authenticated = status;
-      }
-    }
-  }
-);
+// const store = new Vuex.Store(
+//   {
+//     state: {
+//       authenticated: false
+//     },
+//     mutations: {
+//       setAuthentication(state, status) {
+//         state.authenticated = status;
+//       }
+//     }
+//   }
+// );
 
 const routes = [
   {
