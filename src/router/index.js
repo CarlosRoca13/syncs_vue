@@ -5,6 +5,7 @@ import Upload from '../views/Upload.vue'
 import Sheets from '../views/Sheets'
 import SingleSheet from '../components/SingleSheet.vue'
 import Login from "../views/Login.vue"
+import Register from "../views/Register.vue"
 import Vuex from "vuex"
 
 Vue.use(VueRouter)
@@ -53,8 +54,13 @@ const routes = [
   },
   {
     path: "/login",
-    name: "login",
+    name: "Login",
     component: Login
+  },
+  {
+    path: "/signup",
+    name: "Register",
+    component: Register
   }
 ]
 

@@ -14,7 +14,7 @@
       <v-spacer></v-spacer>
       <v-btn text v-on:click="login()">Login</v-btn>
 
-      <v-btn outlined>Sign Up</v-btn>
+      <v-btn text v-on:click="register()" outlined>Sign Up</v-btn>
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer" dark>
@@ -55,7 +55,10 @@ export default {
   },
   methods:{
     login(){
-      this.$router.replace({ name: "login" });
+      this.$router.replace({ name: "Login" });
+    },
+    register(){
+      this.$router.replace({ name: "Register" });
     }
   }
 };
