@@ -2,27 +2,29 @@
     <div>
         <div class="container-all">
 
-            <div class="ctn-form">
+            <div class="ctn-text">
+                <div class="capa"></div>
+                <h1 class="title-description">Title</h1>
+                <p class="text-description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim voluptate, quidem omnis mollitia aliquam recusandae voluptatum architecto quaerat commodi laudantium et, reiciendis nobis non quae. Qui delectus magni cupiditate soluta.</p>
+            </div>
+			<div class="ctn-form">
                 <img src="../img/logo.png" alt="Syncs" class="logo">
-                <h1 class="title">Sign in</h1>
+                <h1 class="title">Sign up</h1>
 
                 <form action="">
 
+					<label for="">Email</label>
+                    <input type="email" name="email" v-model="input.email">
                     <label for="">Username</label>
                     <input type="text" name="username" v-model="input.username">
                     <label for="">Password</label>
                     <input type="password" name="password" v-model="input.password">
                     
-                    <button type="submit" v-on:click="login()">Login</button>
+                    <button type="submit" v-on:click="register()">Sign up</button>
                 </form>
                 <span class="text_footer">Not a member yet?
                     <a href="">Sign up</a>
                 </span>
-            </div>
-            <div class="ctn-text">
-                <div class="capa"></div>
-                <h1 class="title-description">Title</h1>
-                <p class="text-description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim voluptate, quidem omnis mollitia aliquam recusandae voluptatum architecto quaerat commodi laudantium et, reiciendis nobis non quae. Qui delectus magni cupiditate soluta.</p>
             </div>
         </div>
     </div>
@@ -30,23 +32,20 @@
 
 <script>
     export default {
-        name: "Login",
+        name: "Register",
         data() {
             return {
                 input: {
+					email: "",
                     username: "",
                     password: ""
                 }
             }
         },
         methods: {
-            login() {
-                if(this.input.username == "admin" && this.input.password == "pass") {
-					this.$store.commit("setAuthentication", true);
-					this.$router.replace({ name: "upload/:id" });
-                } else {
-                    console.log("The username and / or password is incorrect");
-                }
+            register() {
+                //Aquí va la lógica
+				this.$router.replace({ name: "Login" });
             }
         }
     }
@@ -104,7 +103,7 @@ label{
 	font-weight: 300;
 	color: #7a7a7a;
 }
-
+input[type="email"],
 input[type="text"],
 input[type="password"]{
 	width: 100%;

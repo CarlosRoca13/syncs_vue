@@ -4,8 +4,25 @@ import Home from '../views/Home'
 import Upload from '../views/Upload.vue'
 import Sheets from '../views/Sheets'
 import SingleSheet from '../components/SingleSheet.vue'
+import Login from "../views/Login.vue"
+import Register from "../views/Register.vue"
+import Vuex from "vuex"
 
 Vue.use(VueRouter)
+
+Vue.use(Vuex);
+const store = new Vuex.Store(
+  {
+    state: {
+      authenticated: false
+    },
+    mutations: {
+      setAuthentication(state, status) {
+        state.authenticated = status;
+      }
+    }
+  }
+);
 
 const routes = [
   {
@@ -16,7 +33,14 @@ const routes = [
   {
     path: '/upload/:id',
     name: 'Upload',
-    component: Upload
+    component: Upload,
+    beforeEnter: (to, from, next) => {
+      if(store.state.authenticated == false) {
+        next("/login");
+      } else {
+        next("/upload/:id");
+      }
+    }
   },
   {
     path: '/sheets',
@@ -27,6 +51,16 @@ const routes = [
     path: '/sheets/:id',
     name: 'SingleSheet',
     component: SingleSheet
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/signup",
+    name: "Register",
+    component: Register
   }
 ]
 
