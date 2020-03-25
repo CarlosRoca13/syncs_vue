@@ -23,7 +23,7 @@
       </div>
 
       <v-list class="menu-lateral">
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item v-for="item in items" :key="item.title" :href="item.route">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -47,9 +47,9 @@ export default {
     return {
       drawer: false,
       items: [
-        { title: "Artists", icon: "people_alt" },
-        { title: "Sheets", icon: "music_note" },
-        { title: "Playlists", icon: "queue_music" }
+        { title: "Artists", icon: "people_alt", route:"/artists"},
+        { title: "Sheets", icon: "music_note", route:"/sheets" },
+        { title: "Playlists", icon: "queue_music", route:"/playlists" }
       ]
     };
   },
