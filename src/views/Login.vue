@@ -43,7 +43,7 @@
             login() {
                 if(this.input.username == "admin" && this.input.password == "pass") {
 					this.$store.commit("setAuthentication", true);
-					this.$router.replace({ name: "upload" });
+					this.$router.replace({ name: "upload/:id" });
                 } else {
                     console.log("The username and / or password is incorrect");
                 }
@@ -71,6 +71,9 @@
 	display: flex;
 	border-radius: 20px;
 	overflow: hidden;
+	padding: 20px;
+	background: linear-gradient(90deg, #BF4222,
+	#183A37);
 }
 
 /* LADO IZQUIERDO */

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import Vuex from "vuex"
+//import Vuex from "vuex"
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -9,7 +9,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.config.productionTip = false
-
+/*
 Vue.use(Vuex);
 
 const store = new Vuex.Store(
@@ -23,7 +23,7 @@ const store = new Vuex.Store(
       }
     }
   }
-);
+);*/
 axios.defaults.baseURL = `http://localhost:8000`
 Vue.prototype.$http = axios
 
@@ -37,7 +37,7 @@ Vue.filter('snippet', function(value){
 
 new Vue({
   router,
-  store: store,
+  //store: store,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

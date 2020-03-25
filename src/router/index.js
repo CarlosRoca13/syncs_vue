@@ -5,8 +5,23 @@ import Upload from '../views/Upload.vue'
 import Sheets from '../views/Sheets'
 import SingleSheet from '../components/SingleSheet.vue'
 import Login from "../views/Login.vue"
+import Vuex from "vuex"
 
 Vue.use(VueRouter)
+
+Vue.use(Vuex);
+const store = new Vuex.Store(
+  {
+    state: {
+      authenticated: false
+    },
+    mutations: {
+      setAuthentication(state, status) {
+        state.authenticated = status;
+      }
+    }
+  }
+);
 
 const routes = [
   {
@@ -18,13 +33,13 @@ const routes = [
     path: '/upload/:id',
     name: 'Upload',
     component: Upload,
-    /*beforeEnter: (to, from, next) => {
+    beforeEnter: (to, from, next) => {
       if(store.state.authenticated == false) {
         next("/login");
       } else {
-        next();
+        next("/upload/:id");
       }
-    }*/
+    }
   },
   {
     path: '/sheets',
