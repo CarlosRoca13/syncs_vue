@@ -22,9 +22,6 @@
                     
                     <button type="submit" v-on:click="register()">Sign up</button>
                 </form>
-                <span class="text_footer">Not a member yet?
-                    <a href="">Sign up</a>
-                </span>
             </div>
         </div>
     </div>
@@ -127,19 +124,6 @@ button[type="submit"]{
 	font-weight: 300;
 	cursor: pointer;
 	font-size: 18px;
-}
-
-.text-footer{
-	display: block;
-	margin-top: 100px;
-	text-align: center;
-	color: #7a7a7a;
-	font-weight: 300;
-}
-
-.text-footer a{
-	color: #029EE1;
-	font-weight: 500;
 }
 
 /* LADO DERECHO */
