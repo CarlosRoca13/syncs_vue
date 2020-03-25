@@ -24,13 +24,17 @@
 
       <v-btn color="error" class="mr-4" @click="reset">Reset</v-btn>
     </v-form>
+    <pdfviewer/>
   </v-container>
 </template>
 
 <script>
-
+import pdfviewer from '../components/PDFviewer'
 export default {
   name: "Upload",
+  components: {
+    pdfviewer
+  },
   data() {
     return {
       valid: true,
@@ -42,17 +46,24 @@ export default {
         effects: null,
         pdf: null
       },
-      pdf: null,
       checkbox: false,
     };
   },
   methods: {
     validate() {
+      const formData = new FormData();
+      formData.append("sheetId", this.sheetinstrument.sheetid);
+      formData.append("instrument", this.sheetinstrument.instruments);
+      formData.append("effects", this.sheetinstrument.effects);
+      formData.append("pdf", this.sheetinstrument.pdf);
       this.$http
-        .get("/api/sheetinstrument/1/m4lBKE5aVt")
-        .then(response => (this.pdf = response));
-
-      console.log(this.pdf);
+          .post('/api/sheetinstrument', formData, {headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+        })
+        .then(function(response) {
+          console.log(response);
+        });
     },
     reset() {
       this.$refs.form.reset();

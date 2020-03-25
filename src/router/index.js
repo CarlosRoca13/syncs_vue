@@ -34,13 +34,13 @@ const routes = [
     path: '/upload/:id',
     name: 'Upload',
     component: Upload,
-    beforeEnter: (to, from, next) => {
+    /*beforeEnter: (to, from, next) => {
       if(store.state.authenticated == false) {
         next("/login");
       } else {
         next("/upload/:id");
       }
-    }
+    }*/
   },
   {
     path: '/sheets',

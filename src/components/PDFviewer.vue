@@ -49,7 +49,7 @@ export default {
   methods: {
     getPdf () {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('http://localhost:8000/api/sheetinstrument/1/m4lBKE5aVt');
+      self.pdfdata = pdfvuer.createLoadingTask('http://localhost:8000/api/sheetinstrument/pdf/1/m4lBKE5aVt');
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
         window.onscroll = function() { 
