@@ -9,14 +9,13 @@
       style="height:24px"
       background-color="grey darken-3"
       append-icon="search"
-     
       no-filter
-
-      
+      @keyup="loadEntries"
     >
-     <template slot="item" slot-scope="data">
-         {{ data.item.client }}
-    </template>
+
+    <div slot="item" slot-scope="data" v-if="queryTerm">
+        {{ data.item.name }}
+    </div>
     
     </v-autocomplete>
     
@@ -24,7 +23,6 @@
 
 <script>
 
-import axios from 'axios'
 export default {
   data () {
     return {
@@ -43,20 +41,38 @@ export default {
       set (searchInput) {
         if (this.queryTerm !== searchInput) {
           this.queryTerm = searchInput
-          this.loadEntries()
         }
       }
     }
   },
-  
-  created () {
-    this.loadEntries()
-  },
 
   methods: {
     async loadEntries () {
-      axios.get('/api/search', {params:{name: this.queryTerm}})
-            .then(response => this.entries= response.data);
+      this.entries = []
+      if(this.queryTerm){
+        this.$http.get('/api/search', {params:{name: this.queryTerm}})
+            .then(response => {
+              this.entries.push({header: 'Artists'})
+              for(let item in response.data){
+                if(response.data[item].client != 'NO RESULTS'){
+                  this.entries.push({name: response.data[item].client})
+                }
+              }
+              this.entries.push({header: 'Songs'})
+              for(let item in response.data){
+                if(response.data[item].sheet != 'NO RESULTS'){
+                  this.entries.push({name: response.data[item].sheet})
+                }
+              }
+              this.entries.push({header: 'Playlists'})
+              for(let item in response.data){
+                if(response.data[item].playlist != 'NO RESULTS'){
+                  this.entries.push({name: response.data[item].playlist})
+                }
+              }
+            });
+            }
+      
     }
   }
 }
