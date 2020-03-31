@@ -9,12 +9,18 @@
   </div>
 </template>
 
+// To use this component use it like in this case <pdfviewer sheetId="1" instrument="m4lBKE5aVt"/>
+
 <script>
 import pdfvuer from 'pdfvuer'
 
 export default {
   components: {
     pdf: pdfvuer
+  },
+  props: {
+    sheetId: Number,
+    instrument: String,
   },
   data () {
     return {
@@ -49,7 +55,7 @@ export default {
   methods: {
     getPdf () {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('http://localhost:8000/api/sheetinstrument/pdf/1/m4lBKE5aVt');
+      self.pdfdata = pdfvuer.createLoadingTask('http://localhost:8000/api/sheetinstrument/pdf/'+this.sheetId+'/'+this.instrument);
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
         window.onscroll = function() { 

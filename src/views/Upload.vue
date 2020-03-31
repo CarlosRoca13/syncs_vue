@@ -24,17 +24,12 @@
 
       <v-btn color="error" class="mr-4" @click="reset">Reset</v-btn>
     </v-form>
-    <pdfviewer/>
   </v-container>
 </template>
 
 <script>
-import pdfviewer from '../components/PDFviewer'
 export default {
   name: "Upload",
-  components: {
-    pdfviewer
-  },
   data() {
     return {
       valid: true,
