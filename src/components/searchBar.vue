@@ -77,9 +77,9 @@ export default {
 
 
   changeView(data){
-    this.$http
-          .get("/api/"+data.item.type+"/"+data.item.id)
-          .then(response => console.log(response.data));
+    //window.location.replace=data.item.type+'/'+data.item.id
+    window.location.href = 'http://localhost:8080/'+data.item.type+'/'+data.item.id
+    
   
   }
   }
