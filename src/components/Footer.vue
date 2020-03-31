@@ -28,6 +28,7 @@ export default {
 </script>
 <style>
 .text-center{
+    bottom: 0;
     text-align: center;
 }
 .social{

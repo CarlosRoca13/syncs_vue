@@ -65,10 +65,10 @@ export default {
 </script>
 
 <style>
-/* .searchbar {
+.searchbar {
   margin-bottom: 24px;
   width: 300px;
-} */
+}
 .logo{
   margin-left: 20px;
   margin-top: 15px;
