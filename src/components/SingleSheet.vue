@@ -5,30 +5,45 @@
         <v-row>
           <v-col cols="9" md="6">
             <v-row style="padding-left:10px">
-              <div class="sheetTitle">{{title}}</div>
+              <div class="sheetTitle">{{info.name}}</div>
             </v-row>
             <v-row style="padding-left:10px">
-              <div class="sheetArtist">{{artist}}</div>
+              <div class="sheetArtist">{{info.username}}</div>
             </v-row>
             <v-row>
-              <v-col cols="2">
-                {{views}}
+              <v-col cols="3">
+                {{info.views}}
                 <v-icon class="interactionIcons">visibility</v-icon>
               </v-col>
-              <v-col cols="2">
-                {{likes}}
+              <v-col cols="3">
+                {{info.likes}}
                 <v-btn icon @click="likeButton">
-                <v-icon v-if="like==false" style="padding-bottom:10px" class="interactionIcons">thumb_up</v-icon>
-                <v-icon v-else style="padding-bottom:10px; color:green" class="interactionIcons">thumb_up</v-icon>
+                  <v-icon
+                    v-if="like==false"
+                    style="padding-bottom:10px"
+                    class="interactionIcons"
+                  >thumb_up</v-icon>
+                  <v-icon
+                    v-else
+                    style="padding-bottom:10px; color:green"
+                    class="interactionIcons"
+                  >thumb_up</v-icon>
                 </v-btn>
               </v-col>
               <v-col cols="2">
-                {{dislikes}}
+                {{info.dislikes}}
                 <v-btn icon @click="dislikeButton">
-                <v-icon v-if="dislike==false" style="padding-bottom:10px" class="interactionIcons">thumb_down</v-icon>
-                <v-icon v-else style="padding-bottom:10px; color:red" class="interactionIcons">thumb_down</v-icon>
+                  <v-icon
+                    v-if="dislike==false"
+                    style="padding-bottom:10px"
+                    class="interactionIcons"
+                  >thumb_down</v-icon>
+                  <v-icon
+                    v-else
+                    style="padding-bottom:10px; color:red"
+                    class="interactionIcons"
+                  >thumb_down</v-icon>
                 </v-btn>
-
               </v-col>
             </v-row>
           </v-col>
@@ -47,76 +62,99 @@
               </v-btn>
             </div>
           </v-col>
-          <v-col cols="1">
-            <div>
-              <v-btn icon>
-                <v-icon>cloud_download</v-icon>
-              </v-btn>
-            </div>
-          </v-col>
         </v-row>
       </v-col>
       <v-col cols="6" md="4">
-        <v-img :src="albumImage" width="200"></v-img>
+        <v-img v-if="info.image==null" src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png" width="200"></v-img>
+        <v-img v-else :src="info.image" width="250" height="250"></v-img>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="1">
-        <div style="display:flex" vertical-align: text-top>
-          <div>Song key:</div>
-          <div class="songKeyValue">{{key}}</div>
+        <div style="
+  display:flex;" vertical-align: text-top>
+          <div class="songKey">Song key:</div>
+          <div class="songKeyValue">{{info.key}}</div>
         </div>
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="10">{{description}}</v-col>
+      <v-col cols="10">{{info.description}}</v-col>
     </v-row>
     <v-row>
-      <PDFviewer/>
+      <v-col>
+        <div class="instrumentHeader">Instruments</div>
+      </v-col>
+    </v-row>
+    <v-row>
+      <InstrumentsAvailables />
     </v-row>
   </div>
 </template>
 
 <script>
-import PDFviewer from "./PDFviewer";
+import InstrumentsAvailables from "./InstrumentsAvailables";
+
 export default {
   data() {
     return {
-      id: this.$route.params.id,
-      title: "Anne",
-      artist: "John Frusciante",
-      albumImage:
-        "https://img.discogs.com/g37kX9qyHZvq0hnf5sHhJAOe3PU=/fit-in/600x534/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-931811-1459393353-6812.jpeg.jpg",
-      likes: 300,
-      like:false,
-      dislikes: 30,
-      dislike:false,
-      views: 1200,
-      fav: false,
-      key: "Am",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus ullamcorper commodo. Integer mi lectus, vestibulum vel orci eget, fringilla consequat orci. Sed quis pharetra erat. Nunc blandit nulla eget felis auctor, et porttitor turpis condimentum. Suspendisse aliquam dictum diam, id cursus dolor congue at. Phasellus sed posuere justo. Nam laoreet libero ac rhoncus fringilla. Sed mattis tincidunt eros eu fringilla. Aenean non ipsum est. Duis sodales turpis eget tincidunt tempor. Nunc est ex, eleifend id felis vitae, elementum tristique augue. Curabitur tincidunt bibendum tortor ac tristique. Ut interdum iaculis diam. "
+      info: {
+        name: null,
+        username: null,
+        description: null,
+        key: null,
+        mainGenre: null,
+        likes: null,
+        dislikes: null,
+        views: null,
+        downloads: null,
+        image: null
+      },
+      like: false,
+      dislike: false,
+      fav: false
     };
   },
   methods: {
     favorite() {
       this.fav = !this.fav;
     },
-    likeButton(){
-      this.like=!this.like;
-      if(this.dislike){
-        this.dislike=false;
+    likeButton() {
+      if (this.like) {
+        this.info.likes--;
+      } else {
+        this.info.likes++;
+      }
+      this.like = !this.like;
+
+      if (this.dislike) {
+        this.dislike = false;
+        this.info.dislikes--;
       }
     },
-    dislikeButton(){
-      this.dislike =!this.dislike;
-      if(this.like){
-        this.like=false;
+    dislikeButton() {
+      if (this.dislike) {
+        this.info.dislikes--;
+      } else {
+        this.info.dislikes++;
+      }
+      this.dislike = !this.dislike;
+
+      if (this.like) {
+        this.like = false;
+        this.info.likes--;
       }
     }
   },
   components: {
-    PDFviewer
+    InstrumentsAvailables
+  },
+
+  mounted() {
+    this.$http.get("/api/sheets/" + this.$route.params.id).then(response => {
+      console.log(response);
+      this.info = response.data.data;
+    });
   }
 };
 </script>
@@ -134,14 +172,17 @@ export default {
 }
 .interactionIcons {
   margin: auto;
-  padding-left: 3px;
 }
 
-.songKey{
+.songKey {
   padding-top: 5px;
+  font-weight: bold;
 }
 .songKeyValue {
   font-size: 20px;
-  padding-left: 5px;
+  padding-left: 10px;
+}
+.instrumentHeader {
+  font-weight: bold;
 }
 </style>

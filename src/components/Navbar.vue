@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar absolute dark app>
+    <v-app-bar app dark style="background-color: #04151f">
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Syncs</v-toolbar-title>
@@ -17,7 +17,7 @@
       <v-btn text v-on:click="register()" outlined>Sign Up</v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer" dark>
+    <v-navigation-drawer dark app v-model="drawer" style="background-color: #183a37">
       <div class="logo">
       <a href="/"><v-img src="../assets/syncs.png" width="200"></v-img></a>
       </div>
@@ -76,4 +76,5 @@ export default {
 .menu-lateral{
   margin-top: 30px;
 }
+
 </style>

@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <Navbar/>
-    <v-content>
-      <router-view/>
+    <v-content class="styleApp">
+      <router-view class="styleApp"/>
     </v-content>
     <Footer/>
   </v-app>
@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style>
-  
+.styleApp{
+  background-color: white;
+}
 </style>
