@@ -7,13 +7,15 @@
       placeholder="Search..."
       solo
       :loading="isLoading"
+      item-value="id"
       clearable
       style="height:24px"
       background-color="grey darken-3"
       no-filter
       @keyup="loadEntries"
+      return-object
     >
-      <div slot="item" slot-scope="data" v-if="queryTerm">{{ data.item.name }}</div>
+      <div slot="item" slot-scope="data" v-if="queryTerm" @click="changeView(data)">{{ data.item.name }}</div>
     </v-autocomplete>
   </div>
 </template>
@@ -54,26 +56,34 @@ export default {
             this.entries.push({ header: "Artists" });
             for (let item in response.data) {
               if (response.data[item].client) {
-                this.entries.push({ name: response.data[item].client });
+                this.entries.push({ name: response.data[item].client, id: response.data[item].clientid, type: 'clients' });
               }
             }
             this.entries.push({ header: "Songs" });
             for (let item in response.data) {
               if (response.data[item].sheet) {
-                this.entries.push({ name: response.data[item].sheet });
+                this.entries.push({ name: response.data[item].sheet, id: response.data[item].sheetid, type: 'sheets'});
               }
             }
             this.entries.push({ header: "Playlists" });
             for (let item in response.data) {
               if (response.data[item].playlist) {
-                this.entries.push({ name: response.data[item].playlist });
+                this.entries.push({ name: response.data[item].playlist, id: response.data[item].playlistid, type: 'playlists'});
               }
             }
           }).finally(() => (this.isLoading = false));
       }
-    }
+    },
+
+
+  changeView(data){
+    this.$http
+          .get("/api/"+data.item.type+"/"+data.item.id)
+          .then(response => console.log(response.data));
+  
   }
-};
+  }
+}
 </script>
 
 <style>
