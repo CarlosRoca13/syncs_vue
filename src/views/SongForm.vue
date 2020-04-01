@@ -2,14 +2,18 @@
   <v-container>
 
     <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field 
-      label="Song Name"
-      required
+      <v-text-field
+        v-model="song.name" 
+        label="Name"
+        required
       ></v-text-field>
       <v-textarea
-      label="Description"
-      required></v-textarea>
+        v-model="song.description"
+        label="Description"
+        required
+      ></v-textarea>
       <v-select
+        v-model="song.key"
         :items="key"
         :rules="[v => !!v || 'Key is required']"
         label="Key"
@@ -17,13 +21,14 @@
       ></v-select>
 
       <v-select
+        v-model="song.maingenre"
         :items="genres"
         :rules="[v => !!v || 'A genre is required']"
         label="Main genre"
         required
       ></v-select>
 
-      <v-file-input accept="image/*" label="Image input"></v-file-input>
+      <v-file-input v-model="song.image" accept="image/*" label="Image input"></v-file-input>
 
       <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Accept</v-btn>
 
@@ -34,17 +39,19 @@
 
 <script>
 export default {
-  name: "Upload",
+  name: "SongForm",
   data() {
     return {
       valid: true,
-      key: ["E minor", "E major", "E#"],
-      genres: ["Item 2", "Item 3", "Item 4"],
-      sheetinstrument: {
-        sheetid: this.$route.params.id,
-        instruments: null,
-        effects: null,
-        pdf: null
+      key: ["A", "A#", "Ab", "Am", "A#m", "Abm", "B", "B#", "Bb", "Bm", "B#m", "Bbm", "C", "C#", "Cb", "Cm", "C#m", "Cbm", "D", "D#", "Db", "Dm", "D#m", "Dbm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "F", "F#", "Fb", "Fm", "F#m", "Fbm", "G", "G#", "Gb", "Gm", "G#m", "Gbm"],
+      genres: ["Rock", "Punk", "Blues", "Funk", "Pop", "Techno", "Classic", "Jazz", "Metal", "Death Metal", "Thrash Metal", "Nu Metal", "Power Metal", "Reggae", "Grunge"],
+      song: {
+        //sheetid: this.$route.params.id,
+        name: null,
+        description: '',
+        key: null,
+        maingenre: null,
+        image: null
       },
       checkbox: false,
     };
@@ -52,12 +59,14 @@ export default {
   methods: {
     validate() {
       const formData = new FormData();
-      formData.append("sheetId", this.sheetinstrument.sheetid);
-      formData.append("instrument", this.sheetinstrument.instruments);
-      formData.append("effects", this.sheetinstrument.effects);
-      formData.append("pdf", this.sheetinstrument.pdf);
+      //formData.append("sheetId", this.song.sheetid);
+      formData.append("name", this.song.name);
+      formData.append("description", this.song.description);
+      formData.append("key", this.song.key);
+      formData.append("maingenre", this.song.maingenre);
+      formData.append("image", this.song.image);
       this.$http
-          .post('/api/sheetinstrument', formData, {headers: {
+          .post('/api/song', formData, {headers: {
                     'Content-Type': 'multipart/form-data'
                   }
         })
