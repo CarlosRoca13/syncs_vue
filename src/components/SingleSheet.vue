@@ -103,7 +103,7 @@ export default {
         username: null,
         description: null,
         key: null,
-        mainGenre: null,
+        main_genre: null,
         likes: null,
         dislikes: null,
         views: null,
@@ -152,8 +152,8 @@ export default {
 
   mounted() {
     this.$http.get("/api/sheets/" + this.$route.params.id).then(response => {
-      console.log(response);
-      this.info = response.data.data;
+      console.log(response.data[0]);
+      this.info = response.data[0];
     });
   }
 };
