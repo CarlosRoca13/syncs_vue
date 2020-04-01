@@ -6,6 +6,7 @@ import Sheets from '../views/Sheets'
 import SingleSheet from '../components/SingleSheet.vue'
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
+import SongForm from "../views/SongForm.vue"
 import Vuex from "vuex"
 
 Vue.use(VueRouter)
@@ -41,6 +42,11 @@ const routes = [
         next("/upload/:id");
       }
     }*/
+  },
+  {
+    path: '/createsong',
+    name: 'SongForm',
+    component: SongForm
   },
   {
     path: '/sheets',
