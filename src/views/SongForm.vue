@@ -66,7 +66,7 @@ export default {
       formData.append("maingenre", this.song.maingenre);
       formData.append("image", this.song.image);
       this.$http
-          .post('/api/song', formData, {headers: {
+          .post('/api/sheets', formData, {headers: {
                     'Content-Type': 'multipart/form-data'
                   }
         })
