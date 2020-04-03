@@ -15,7 +15,7 @@
       @keyup="loadEntries"
       return-object
     >
-      <div slot="item" slot-scope="data" v-if="queryTerm" @click="changeView(data)">{{ data.item.name }}</div>
+      <div slot="item" slot-scope="data" v-if="queryTerm" @click="changeView(data)">{{ data.item.name }}, {{ data.item.artist }}</div>
     </v-autocomplete>
   </div>
 </template>
@@ -56,19 +56,23 @@ export default {
             this.entries.push({ header: "Artists" });
             for (let item in response.data) {
               if (response.data[item].client) {
-                this.entries.push({ name: response.data[item].client, id: response.data[item].clientid, type: 'clients' });
+                this.entries.push({ name: response.data[item].client, id: response.data[item].clientid, type: 'clients', artist: ''});
               }
             }
             this.entries.push({ header: "Songs" });
             for (let item in response.data) {
               if (response.data[item].sheet) {
-                this.entries.push({ name: response.data[item].sheet, id: response.data[item].sheetid, type: 'sheets'});
+                this.entries.push({ name: response.data[item].sheet, id: response.data[item].sheetid, type: 'sheets', 
+                artist: this.$http.get("/api/getArtistSong",{params: {sheetid: response.data[item].sheetid}})
+                .then(response => response.data.client)});
               }
             }
             this.entries.push({ header: "Playlists" });
             for (let item in response.data) {
               if (response.data[item].playlist) {
-                this.entries.push({ name: response.data[item].playlist, id: response.data[item].playlistid, type: 'playlists'});
+                this.entries.push({ name: response.data[item].playlist, id: response.data[item].playlistid, type: 'playlists',
+                artist: this.$http.get("/api/getArtistPlaylist",{params: {playlistid: response.data[item].playlistid}})
+                .then(response => response.data.client)});
               }
             }
           }).finally(() => (this.isLoading = false));
