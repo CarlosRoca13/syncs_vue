@@ -6,6 +6,7 @@
         loading content here...
       </template>
     </pdf>
+    id = {{this.$route.params.id}}
   </div>
 </template>
 
@@ -17,10 +18,6 @@ import pdfvuer from 'pdfvuer'
 export default {
   components: {
     pdf: pdfvuer
-  },
-  props: {
-    sheetId: Number,
-    instrument: String,
   },
   data () {
     return {
@@ -55,7 +52,7 @@ export default {
   methods: {
     getPdf () {
       var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('http://localhost:8000/api/sheetinstrument/pdf/'+this.sheetId+'/'+this.instrument);
+      self.pdfdata = pdfvuer.createLoadingTask('http://localhost:8000/api/sheetinstrument/pdf/'+this.$route.params.id+'/'+this.$route.params.instrument);
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
         window.onscroll = function() { 

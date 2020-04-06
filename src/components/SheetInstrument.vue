@@ -1,22 +1,26 @@
 <template>
   <div class="main">
     <v-row>
-      <v-col cols="12">
+      <v-col cols="3">
         <v-row class="songName">{{info.name}}</v-row>
         <v-row class="artistName">{{info.username}}</v-row>
+      </v-col>
+      <v-col>
+        <DownloadButton :sheetId="id" :instrument="instrument"/>
       </v-col>
     </v-row>
     <v-row>
       <InstrumentsAvailables />
     </v-row>
     <v-row class="instrumentTitle">{{instrument}}</v-row>
-    <pdfviewer :sheetId="info.id" :instrument="instrument" />
+    <pdfviewer/>
   </div>
 </template>
 
 <script>
 import pdfviewer from "./PDFviewer";
 import InstrumentsAvailables from "./InstrumentsAvailables";
+import DownloadButton from './DownloadButton';
 export default {
   data() {
     return {
@@ -33,13 +37,15 @@ export default {
         downloads: null,
         image: null
       },
+      id: this.$route.params.id,
       instrument: this.$route.params.instrument
     };
   },
 
   components: {
     pdfviewer,
-    InstrumentsAvailables
+    InstrumentsAvailables,
+    DownloadButton
   },
 
   mounted() {

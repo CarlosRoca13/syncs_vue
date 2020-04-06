@@ -47,7 +47,7 @@ export default {
   methods: {
     validate() {
       const formData = new FormData();
-      formData.append("sheetId", this.sheetinstrument.sheetid);
+      formData.append("sheets_id", this.sheetinstrument.sheetid);
       formData.append("instrument", this.sheetinstrument.instruments);
       formData.append("effects", this.sheetinstrument.effects);
       formData.append("pdf", this.sheetinstrument.pdf);
