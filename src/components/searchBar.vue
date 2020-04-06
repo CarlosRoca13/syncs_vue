@@ -15,7 +15,7 @@
       @keyup="loadEntries"
       return-object
     >
-      <div slot="item" slot-scope="data" v-if="queryTerm" @click="changeView(data)">{{ data.item.name }}, {{ data.item.artist }}</div>
+      <div slot="item" slot-scope="data" v-if="queryTerm" @click="changeView(data)">{{ data.item.name }} by {{data.item.artist}}</div>
     </v-autocomplete>
   </div>
 </template>
@@ -52,27 +52,29 @@ export default {
         this.isLoading = true
         this.$http
           .get("/api/search", { params: { name: this.queryTerm } })
-          .then(response => {
+          .then(async response => {
             this.entries.push({ header: "Artists" });
             for (let item in response.data) {
               if (response.data[item].client) {
-                this.entries.push({ name: response.data[item].client, id: response.data[item].clientid, type: 'clients', artist: ''});
+                this.entries.push({ name: response.data[item].client, id: response.data[item].clientid, type: 'clients'});
               }
             }
             this.entries.push({ header: "Songs" });
             for (let item in response.data) {
               if (response.data[item].sheet) {
-                this.entries.push({ name: response.data[item].sheet, id: response.data[item].sheetid, type: 'sheets', 
-                artist: this.$http.get("/api/getArtistSong",{params: {sheetid: response.data[item].sheetid}})
-                .then(response => response.data.client)});
+                let res = await this.$http.get("/api/clientsong/"+response.data[item].sheetid)
+                
+                this.entries.push({ name: response.data[item].sheet, id: response.data[item].sheetid, type: 'sheets', artist: res.data[0].client});
+
+                
               }
             }
             this.entries.push({ header: "Playlists" });
             for (let item in response.data) {
               if (response.data[item].playlist) {
-                this.entries.push({ name: response.data[item].playlist, id: response.data[item].playlistid, type: 'playlists',
-                artist: this.$http.get("/api/getArtistPlaylist",{params: {playlistid: response.data[item].playlistid}})
-                .then(response => response.data.client)});
+                let res = await this.$http.get("/api/clientplaylist/"+response.data[item].playlistid)
+
+                this.entries.push({ name: response.data[item].playlist, id: response.data[item].playlistid, type: 'playlists', artist: res.data[0].client});
               }
             }
           }).finally(() => (this.isLoading = false));
@@ -82,8 +84,7 @@ export default {
 
   changeView(data){
     //window.location.replace=data.item.type+'/'+data.item.id
-    window.location.href = 'http://localhost:8080/'+data.item.type+'/'+data.item.id
-    
+    window.location.href = 'http://localhost:8080/'+data.item.type+'/'+data.item.id;
   
   }
   }
