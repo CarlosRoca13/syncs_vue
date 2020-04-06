@@ -2,23 +2,33 @@
   <v-container>
 
     <v-form ref="form" v-model="valid" lazy-validation>
+      <v-text-field
+        v-model="song.name" 
+        label="Name"
+        required
+      ></v-text-field>
+      <v-textarea
+        v-model="song.description"
+        label="Description"
+        required
+      ></v-textarea>
       <v-select
-        v-model="sheetinstrument.instruments"
-        :items="instruments"
-        :rules="[v => !!v || 'Instrument is required']"
-        label="Instrument"
+        v-model="song.key"
+        :items="key"
+        :rules="[v => !!v || 'Key is required']"
+        label="Key"
         required
       ></v-select>
 
       <v-select
-        v-model="sheetinstrument.effects"
-        :items="effects"
-        :rules="[v => !!v || 'Effect is required']"
-        label="Effects"
+        v-model="song.maingenre"
+        :items="genres"
+        :rules="[v => !!v || 'A genre is required']"
+        label="Main genre"
         required
       ></v-select>
 
-      <v-file-input v-model="sheetinstrument.pdf" accept=".pdf" label="File input"></v-file-input>
+      <v-file-input v-model="song.image" accept="image/*" label="Image input"></v-file-input>
 
       <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Accept</v-btn>
 
@@ -29,10 +39,48 @@
 
 <script>
 export default {
-
-}
+  name: "SongForm",
+  data() {
+    return {
+      valid: true,
+      key: ["A", "A#", "Ab", "Am", "A#m", "Abm", "B", "B#", "Bb", "Bm", "B#m", "Bbm", "C", "C#", "Cb", "Cm", "C#m", "Cbm", "D", "D#", "Db", "Dm", "D#m", "Dbm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "F", "F#", "Fb", "Fm", "F#m", "Fbm", "G", "G#", "Gb", "Gm", "G#m", "Gbm"],
+      genres: ["Rock", "Punk", "Blues", "Funk", "Pop", "Techno", "Classic", "Jazz", "Metal", "Death Metal", "Thrash Metal", "Nu Metal", "Power Metal", "Reggae", "Grunge"],
+      song: {
+        name: null,
+        description: '',
+        key: null,
+        maingenre: null,
+        image: null
+      },
+      checkbox: false,
+    };
+  },
+  methods: {
+    validate() {
+      const formData = new FormData();
+      formData.append("name", this.song.name);
+      formData.append("clients_id", 1); //cojer id de la session
+      formData.append("description", this.song.description);
+      formData.append("key", this.song.key);
+      formData.append("main_genre", this.song.maingenre);
+      formData.append("likes", 0);
+      formData.append("dislikes", 0);
+      formData.append("views", 0);
+      formData.append("downloads", 0);
+      formData.append("image", this.song.image);
+      this.$http
+          .post('/api/sheets', formData, {headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+        })
+        .then(function(response) {
+          window.location.href = 'http://localhost:8080/';
+          console.log(response);
+        });
+    },
+    reset() {
+      this.$refs.form.reset();
+    },
+  },
+};
 </script>
-
-<style>
-
-</style>
