@@ -65,7 +65,11 @@
         </v-row>
       </v-col>
       <v-col cols="6" md="4">
-        <v-img v-if="info.image==null" src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png" width="200"></v-img>
+        <v-img
+          v-if="info.image==null"
+          src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png"
+          width="200"
+        ></v-img>
         <v-img v-else :src="info.image" width="250" height="250"></v-img>
       </v-col>
     </v-row>
@@ -99,6 +103,7 @@ export default {
   data() {
     return {
       info: {
+        id: null,
         name: null,
         username: null,
         description: null,
@@ -122,27 +127,57 @@ export default {
     likeButton() {
       if (this.like) {
         this.info.likes--;
+        this.$http
+          .put("/api/sheets/downlike/" + this.$route.params.id)
+          .then(response => {
+            console.log(response);
+          });
       } else {
         this.info.likes++;
+        this.$http
+          .put("/api/sheets/uplike/" + this.$route.params.id)
+          .then(response => {
+            console.log(response);
+          });
       }
       this.like = !this.like;
 
       if (this.dislike) {
         this.dislike = false;
         this.info.dislikes--;
+        this.$http
+          .put("/api/sheets/downdislike/" + this.$route.params.id)
+          .then(response => {
+            console.log(response);
+          });
       }
     },
     dislikeButton() {
       if (this.dislike) {
         this.info.dislikes--;
+        this.$http
+          .put("/api/sheets/downdislike/" + this.$route.params.id)
+          .then(response => {
+            console.log(response);
+          });
       } else {
         this.info.dislikes++;
+        this.$http
+          .put("/api/sheets/updislike/" + this.$route.params.id)
+          .then(response => {
+            console.log(response);
+          });
       }
       this.dislike = !this.dislike;
 
       if (this.like) {
         this.like = false;
         this.info.likes--;
+        this.$http
+          .put("/api/sheets/downlike/" + this.$route.params.id)
+          .then(response => {
+            console.log(response);
+          });
       }
     }
   },
@@ -154,6 +189,8 @@ export default {
     this.$http.get("/api/sheets/" + this.$route.params.id).then(response => {
       console.log(response.data[0]);
       this.info = response.data[0];
+      this.info.image =
+        "http://localhost:8000/api/sheets/image/" + this.info.id;
     });
   }
 };
