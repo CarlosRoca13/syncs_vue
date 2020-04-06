@@ -6,14 +6,14 @@
                 <img src="../img/logo.png" alt="Syncs" class="logo">
                 <h1 class="title">Sign in</h1>
 
-                <form action="">
+                <form v-on:submit.prevent="login">
 
                     <label for="">Username</label>
                     <input type="text" name="username" v-model="input.username">
                     <label for="">Password</label>
                     <input type="password" name="password" v-model="input.password">
                     
-                    <button type="submit" v-on:click="login()">Login</button>
+                    <button type="submit">Login</button>
                 </form>
                 <span class="text_footer">Not a member yet?
                     <a href="">Sign up</a>
@@ -40,13 +40,19 @@
             }
         },
         methods: {
-            login() {
-                if(this.input.username == "admin" && this.input.password == "pass") {
-					this.$store.commit("setAuthentication", true);
-					this.$router.replace({ name: "upload/:id" });
-                } else {
-                    console.log("The username and / or password is incorrect");
-                }
+            login: async function login() {
+				const users = await this.$http.get("http://localhost:8000/api/clients");
+				for(const {username, password} of users.data.data){
+					if(username === this.input.username && password === this.input.password){
+						let activeUser = {
+							'username': this.input.username,
+							'token': Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+						}
+						localStorage.setItem("activeUser", JSON.stringify(activeUser));
+						this.$router.replace({ name: "home" });
+						break;
+					}
+				}
             }
         }
     }
