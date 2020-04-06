@@ -18,7 +18,7 @@
                         let blob = new Blob([response.data], { type: 'application/pdf' })
                         let link = document.createElement('a')
                         link.href = window.URL.createObjectURL(blob)
-                        link.download = 'test.pdf' //quan funcione canviar açò per el nom del pdf
+                        link.download = 'sheet.pdf' //quan funcione canviar açò per el nom del pdf
                         link.click()
                     })
             }
