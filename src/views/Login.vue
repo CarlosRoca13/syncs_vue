@@ -5,16 +5,24 @@
             <div class="ctn-form">
                 <img src="../img/logo.png" alt="Syncs" class="logo">
                 <h1 class="title">Sign in</h1>
+				<ValidationObserver v-slot="{ handleSubmit }">
+					<form v-on:submit.prevent="handleSubmit(login)">
 
-                <form v-on:submit.prevent="login">
-
-                    <label for="">Username</label>
-                    <input type="text" name="username" v-model="input.username">
-                    <label for="">Password</label>
-                    <input type="password" name="password" v-model="input.password">
-                    
-                    <button type="submit">Login</button>
-                </form>
+						<ValidationProvider name="username" rules="required" v-slot="{ errors }">
+							<label for="username">Username</label>
+							<input type="text" v-model="input.username" name="username">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						<ValidationProvider name="password" rules="required" v-slot="{ errors }">
+							<label for="password">Password</label>
+							<input type="password" v-model="input.password" name="password">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						
+						<button type="submit">Login</button>
+						
+					</form>
+				</ValidationObserver>
                 <span class="text_footer">Not a member yet?
                     <a href="">Sign up</a>
                 </span>
@@ -36,11 +44,13 @@
                 input: {
                     username: "",
                     password: ""
-                }
-            }
-        },
+				},
+				submitted: false
+			}
+		},
         methods: {
             login: async function login() {
+				let logSucc = false;
 				const users = await this.$http.get("http://localhost:8000/api/clients");
 				for(const {username, password} of users.data.data){
 					if(username === this.input.username && password === this.input.password){
@@ -50,8 +60,12 @@
 						}
 						localStorage.setItem("activeUser", JSON.stringify(activeUser));
 						this.$router.replace({ name: "home" });
+						logSucc = true;
 						break;
 					}
+				}
+				if(!logSucc){
+					alert("Wrong username or password")
 				}
             }
         }

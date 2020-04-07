@@ -10,24 +10,48 @@
 			<div class="ctn-form">
                 <img src="../img/logo.png" alt="Syncs" class="logo">
                 <h1 class="title">Sign up</h1>
+				<ValidationObserver for="form" v-slot="{ handleSubmit }">
+					<form name="form" id="form" v-on:submit.prevent="handleSubmit(register)">
 
-                <form v-on:submit.prevent="register">
-
-					<label for="">Name</label>
-                    <input type="text" name="name" v-model="input.name">
-					<label for="">Lastname</label>
-                    <input type="text" name="lastname" v-model="input.lastname">
-					<label for="">Email</label>
-                    <input type="email" name="email" v-model="input.email">
-                    <label for="">Username</label>
-                    <input type="text" name="username" v-model="input.username">
-                    <label for="">Password</label>
-                    <input type="password" name="password" v-model="input.password">
-					<label for="">birthday</label>
-                    <input type="date" name="birthday" v-model="input.birthday">
-                    
-                    <button type="submit">Sign up</button>
-                </form>
+						<ValidationProvider name="name" rules="required|alpha|min:2|max:30" v-slot="{ errors }">
+							<label for="name">Name</label>
+							<input type="text" v-model="input.name" name="name">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						<ValidationProvider name="lastname" rules="required|alpha|min:2|max:60" v-slot="{ errors }">
+							<label for="lastname">Lastname</label>
+							<input type="text" v-model="input.lastname" name="lastname">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						<ValidationProvider name="email" rules="required|email|max:30" v-slot="{ errors }">
+							<label for="email">Email</label>
+							<input v-model="input.email" type="email" name="email">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						<ValidationProvider name="username" rules="required|alpha_dash|min:2|max:20" v-slot="{ errors }">
+							<label for="username">Username</label>
+							<input type="text" v-model="input.username" name="username">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						<ValidationProvider name="password" rules="required|alpha_dash|min:6|max:20|confirmed:confirmation" v-slot="{ errors }">
+							<label for="password">Password</label>
+							<input type="password" v-model="input.password" name="password">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						<ValidationProvider v-slot="{ errors }" vid="confirmation">
+							<label for="">Repeat password</label>
+							<input v-model="input.confirmation" type="password">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						<ValidationProvider name="birthday" rules="required" v-slot="{ errors }">
+							<label for="">birthday</label>
+							<input type="date" name="birthday" v-model="input.birthday">
+							<span>{{ errors[0] }}</span>
+						</ValidationProvider>
+						
+						<button type="submit">Sign up</button>
+					</form>
+				</ValidationObserver>
             </div>
         </div>
     </div>
@@ -44,6 +68,7 @@
 					email: "",
                     username: "",
 					password: "",
+					confirmation: "",
 					verified: "0",
 					avatar: "0",
 					birthday: ""
@@ -53,30 +78,6 @@
         methods: {
             register() {
 				this.$http.post("http://localhost:8000/api/clients", this.input);
-				/*fetch('http://localhost:8000/api/clients', {method: 'POST', body: JSON.stringify(data), headers: {'content-type':'application/json'}})
-				.then((response) => {
-					if(!response.ok) {
-						throw response;
-					}
-
-					return response.json();
-				})      //Respuesta a objeto json
-				.then(function(res){
-					console.log(res)/*
-					var userdata = {
-						'username': document.getElementById("username").value,
-						'token': Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-					}
-					localStorage.setItem("userdata", userdata);*/ /*
-					alert('User Registered');
-				})
-				.catch(function(error){
-					console.log(error)
-					alert('Invalid email, password, email already exists...')
-				})
-				.finally((_) => console.log(_))
-					//Aquí va la lógica
-					this.$router.replace({ name: "Login" });*/
 			}
 		}
     }

@@ -12,6 +12,7 @@
     "core-js": "^3.6.4",
     "material-design-icons-iconfont": "^5.0.1",
     "pdfvuer": "^1.4.0",
+    "vee-validate": "^3.2.5",
     "vue": "^2.6.11",
     "vue-pdf": "^4.0.8",
     "vue-pdfjs": "^1.1.1",
