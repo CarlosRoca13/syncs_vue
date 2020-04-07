@@ -59,7 +59,7 @@
 							'token': Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 						}
 						localStorage.setItem("activeUser", JSON.stringify(activeUser));
-						this.$router.replace({ name: "home" });
+						this.$router.replace({ name: "Home" });
 						logSucc = true;
 						break;
 					}
