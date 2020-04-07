@@ -1,90 +1,77 @@
 <template>
-  <div id="pdfvuer">
-    <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
-      :scale.sync="scale" style="width:100%;margin:20px auto;">
-      <template slot="loading">
-        loading content here...
-      </template>
-    </pdf>
+  <div class="main">
+    <v-row>
+      <v-col cols="3">
+        <v-row class="songName">{{info.name}}</v-row>
+        <v-row class="artistName">{{info.username}}</v-row>
+      </v-col>
+      <v-col>
+        <DownloadButton :sheetId="id" :instrument="instrument"/>
+      </v-col>
+    </v-row>
+    <v-row>
+      <InstrumentsAvailables />
+    </v-row>
+    <v-row class="instrumentTitle">{{instrument}}</v-row>
+    <pdfviewer/>
   </div>
 </template>
 
 <script>
-import pdfvuer from 'pdfvuer'
-
+import pdfviewer from "./PDFviewer";
+import InstrumentsAvailables from "./InstrumentsAvailables";
+import DownloadButton from './DownloadButton';
 export default {
-  components: {
-    pdf: pdfvuer
-  },
-  data () {
+  data() {
     return {
-      page: 1,
-      numPages: 0,
-      pdfdata: undefined,
-      errors: [],
-      scale: 'page-width'
-    }
+      info: {
+        id: null,
+        name: null,
+        username: null,
+        description: null,
+        key: null,
+        main_genre: null,
+        likes: null,
+        dislikes: null,
+        views: null,
+        downloads: null,
+        image: null
+      },
+      id: this.$route.params.id,
+      instrument: this.$route.params.instrument
+    };
   },
-  computed: {
-    formattedZoom () {
-        return Number.parseInt(this.scale * 100);
-    },
-  },
-  mounted () {
-    this.getPdf()
-  },
-  watch: {
-    show: function (s) {
-      if(s) {
-        this.getPdf();
-      }
-    },
-    page: function (p) {
-      if( window.pageYOffset <= this.findPos(document.getElementById(p)) || ( document.getElementById(p+1) && window.pageYOffset >= this.findPos(document.getElementById(p+1)) )) {
-        // window.scrollTo(0,this.findPos(document.getElementById(p)));
-        document.getElementById(p).scrollIntoView();
-      }
-    }
-  },
-  methods: {
-    getPdf () {
-      var self = this;
-      self.pdfdata = pdfvuer.createLoadingTask('http://localhost:8000/api/sheetinstrument/pdf/1/m4lBKE5aVt');
-      self.pdfdata.then(pdf => {
-        self.numPages = pdf.numPages;
-        window.onscroll = function() { 
-          changePage() 
-        }
 
-        function changePage () {
-          var i = 1, count = Number(pdf.numPages);
-          do {
-            if(window.pageYOffset >= self.findPos(document.getElementById(i)) && 
-                window.pageYOffset <= self.findPos(document.getElementById(i+1))) {
-              self.page = i
-            }
-            i++
-          } while ( i < count)
-          if (window.pageYOffset >= self.findPos(document.getElementById(i))) {
-            self.page = i
-          }
-        }
-      });
-    },
-    findPos(obj) {
-      return obj.offsetTop;
-    }
+  components: {
+    pdfviewer,
+    InstrumentsAvailables,
+    DownloadButton
+  },
+
+  mounted() {
+    this.$http.get("/api/sheets/" + this.$route.params.id).then(response => {
+      console.log(response.data[0]);
+      this.info = response.data[0];
+    });
   }
-}
+};
 </script>
 
-<style lang="css" scoped>
-  #buttons {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  /* Page content */
-  .content {
-    padding: 16px;
-  }
+<style>
+.main {
+  padding-left: 50px;
+}
+.songName {
+  font-size: 48px;
+}
+.artistName {
+  font-size: 24px;
+  color: grey;
+}
+.instrumentTitle {
+  padding-top: 20px;
+  font-size: 24px;
+  color: grey;
+  text-transform: capitalize;
+}
 </style>

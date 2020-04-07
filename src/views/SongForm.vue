@@ -46,7 +46,6 @@ export default {
       key: ["A", "A#", "Ab", "Am", "A#m", "Abm", "B", "B#", "Bb", "Bm", "B#m", "Bbm", "C", "C#", "Cb", "Cm", "C#m", "Cbm", "D", "D#", "Db", "Dm", "D#m", "Dbm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "F", "F#", "Fb", "Fm", "F#m", "Fbm", "G", "G#", "Gb", "Gm", "G#m", "Gbm"],
       genres: ["Rock", "Punk", "Blues", "Funk", "Pop", "Techno", "Classic", "Jazz", "Metal", "Death Metal", "Thrash Metal", "Nu Metal", "Power Metal", "Reggae", "Grunge"],
       song: {
-        //sheetid: this.$route.params.id,
         name: null,
         description: '',
         key: null,
@@ -59,11 +58,15 @@ export default {
   methods: {
     validate() {
       const formData = new FormData();
-      //formData.append("sheetId", this.song.sheetid);
       formData.append("name", this.song.name);
+      formData.append("clients_id", 1); //cojer id de la session
       formData.append("description", this.song.description);
       formData.append("key", this.song.key);
-      formData.append("maingenre", this.song.maingenre);
+      formData.append("main_genre", this.song.maingenre);
+      formData.append("likes", 0);
+      formData.append("dislikes", 0);
+      formData.append("views", 0);
+      formData.append("downloads", 0);
       formData.append("image", this.song.image);
       this.$http
           .post('/api/sheets', formData, {headers: {
@@ -71,6 +74,7 @@ export default {
                   }
         })
         .then(function(response) {
+          window.location.href = 'http://localhost:8080/';
           console.log(response);
         });
     },

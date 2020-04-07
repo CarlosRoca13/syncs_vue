@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import Upload from '../views/Upload.vue'
 import Sheets from '../views/Sheets'
 import SingleSheet from '../components/SingleSheet.vue'
+import SheetInstrument from '../components/SheetInstrument'
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import SongForm from "../views/SongForm.vue"
@@ -57,6 +58,11 @@ const routes = [
     path: '/sheets/:id',
     name: 'SingleSheet',
     component: SingleSheet
+  },
+  {
+    path: '/sheets/:id/:instrument',
+    name: 'SheetInstrument',
+    component: SheetInstrument
   },
   {
     path: "/login",
