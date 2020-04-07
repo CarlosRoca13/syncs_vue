@@ -43,8 +43,8 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-
+/*
 // Provisional -> Se elimina activeUser al refrescar/cerrar la pestaña del navegador
 window.onunload = () => {
   window.localStorage.removeItem('activeUser');
-};
+};*/

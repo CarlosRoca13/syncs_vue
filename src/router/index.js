@@ -84,10 +84,23 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // redireccionar a login si se intenta acceder a zona protegida
-  const publicPages = ['/login', '/signup', '/'];
+  const publicPages = ['/login', '/signup', '/', '/sheets/:id/:instrument', '/sheets/:id', '/sheets'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('activeUser');
 
+  if(loggedIn){
+    const item = JSON.parse(loggedIn)
+    const now = new Date()
+    // compare the expiry time of the item with the current time
+    if (now.getTime() > item.expiry) {
+      // If the item is expired, delete the item from storage
+      // and return null
+      console.log("Tiempo expirado, eliminando item.")
+      localStorage.removeItem(loggedIn)
+      return next('/login');
+    }  
+  }
+  
   if (authRequired && !loggedIn) {
     return next('/login');
   }

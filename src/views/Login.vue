@@ -24,7 +24,7 @@
 					</form>
 				</ValidationObserver>
                 <span class="text_footer">Not a member yet?
-                    <a href="">Sign up</a>
+					<router-link to="/signup">Sign up</router-link>
                 </span>
             </div>
             <div class="ctn-text">
@@ -54,9 +54,12 @@
 				const users = await this.$http.get("http://localhost:8000/api/clients");
 				for(const {username, password} of users.data.data){
 					if(username === this.input.username && password === this.input.password){
+						const now = new Date()
+						console.log(now)					
 						let activeUser = {
 							'username': this.input.username,
-							'token': Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+							'token': Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+							'expiry': now.getTime() + 1800000
 						}
 						localStorage.setItem("activeUser", JSON.stringify(activeUser));
 						this.$router.replace({ name: "Home" });
