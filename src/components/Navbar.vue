@@ -104,6 +104,13 @@ export default {
     },
     logout() {
       //Aqui, Cazalilla
+      const loggedIn = localStorage.getItem('activeUser');
+
+      if(loggedIn){
+        localStorage.removeItem('activeUser')
+        this.$router.replace({ name: "Register" });
+        //this.$forceUpdate();
+      }
       console.log("Logout pulsado.");
     }
   },

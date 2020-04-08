@@ -96,7 +96,7 @@ router.beforeEach((to, from, next) => {
       // If the item is expired, delete the item from storage
       // and return null
       console.log("Tiempo expirado, eliminando item.")
-      localStorage.removeItem(loggedIn)
+      localStorage.removeItem('activeUser')
       return next('/login');
     }  
   }
