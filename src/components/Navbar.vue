@@ -102,6 +102,13 @@ export default {
       }else if(option == "mySheets"){
         console.log("My Sheets");
       }else if(option == "logout"){
+        const loggedIn = localStorage.getItem('activeUser');
+
+        if(loggedIn){
+          localStorage.removeItem('activeUser')
+          this.$router.replace({ name: "Home" });
+          this.$router.go(this.$router.currentRoute)
+        }
         console.log("Logout");
       }
     },

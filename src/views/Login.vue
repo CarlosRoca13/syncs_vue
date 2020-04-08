@@ -72,7 +72,7 @@ export default {
 			};
 			localStorage.setItem("activeUser", JSON.stringify(activeUser));
 			this.$router.replace({ name: "Home" });
-			//this.$forceUpdate();
+			this.$router.go(this.$router.currentRoute)
 			logSucc = true;
 			break;
         }
