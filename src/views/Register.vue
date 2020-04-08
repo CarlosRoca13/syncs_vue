@@ -40,7 +40,7 @@
 						</ValidationProvider>
 						<ValidationProvider v-slot="{ errors }" vid="confirmation">
 							<label for="">Repeat password</label>
-							<input v-model="input.confirmation" type="password">
+							<input v-model="pass.confirmation" type="password">
 							<span>{{ errors[0] }}</span>
 						</ValidationProvider>
 						<ValidationProvider name="birthday" rules="required" v-slot="{ errors }">
@@ -68,16 +68,18 @@
 					email: "",
                     username: "",
 					password: "",
-					confirmation: "",
 					verified: "0",
-					avatar: "0",
 					birthday: ""
-                }
+				},
+				pass: {
+					confirmation: ""
+				}
             }
         },
         methods: {
             register() {
 				this.$http.post("http://localhost:8000/api/clients", this.input);
+				this.$router.replace({ name: "Login" });
 			}
 		}
     }

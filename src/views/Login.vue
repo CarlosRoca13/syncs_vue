@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div>
     <div class="container-all">
       <div class="ctn-form">
         <img src="../img/logo.png" alt="Syncs" class="logo" />
@@ -22,7 +22,7 @@
         </ValidationObserver>
         <span class="text_footer">
           Not a member yet?
-          <a href>Sign up</a>
+          <router-link to="/signup">Sign up</router-link>
         </span>
       </div>
       <div class="ctn-text">
@@ -57,6 +57,8 @@ export default {
           username === this.input.username &&
           password === this.input.password
         ) {
+          const now = new Date();
+          console.log(now);
           let activeUser = {
             username: this.input.username,
             token:
@@ -65,10 +67,11 @@ export default {
                 .substring(2, 15) +
               Math.random()
                 .toString(36)
-                .substring(2, 15)
+                .substring(2, 15),
+            expiry: now.getTime() + 1800000
           };
           localStorage.setItem("activeUser", JSON.stringify(activeUser));
-          this.$router.replace({ name: "home" });
+          this.$router.replace({ name: "Home" });
           logSucc = true;
           break;
         }
@@ -90,7 +93,7 @@ export default {
   text-decoration: none;
 }
 
-.main{
+.main {
   background: linear-gradient(90deg, #bf4222, #183a37);
 }
 .container-all {
