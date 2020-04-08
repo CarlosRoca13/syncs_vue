@@ -30,7 +30,7 @@
           </template>
 
           <v-list class="profileMenuContent">
-            <v-list-item v-for="item in menuItems" :key="item.title" @click="d">
+            <v-list-item v-for="item in menuItems" :key="item.title" @click="item.function">
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -78,9 +78,9 @@ export default {
       userLogged: null,
       drawer: false,
       menuItems: [
-        { title: "Edit Profile", icon: "create", route: "" },
-        { title: "My Sheets", icon: "music_note", route: "" },
-        { title: "Logout", icon: "exit_to_app", route: "" }
+        { title: "Edit Profile", icon: "create", function: "editProfile()" },
+        { title: "My Sheets", icon: "music_note", function: "mySheets()" },
+        { title: "Logout", icon: "exit_to_app", function: "logout()" }
       ],
       items: [
         { title: "Artists", icon: "people_alt", route: "/artists" },
@@ -95,6 +95,16 @@ export default {
     },
     register() {
       this.$router.replace({ name: "Register" });
+    },
+    editProfile() {
+      console.log("Edit Profile pulsado");
+    },
+    mySheets() {
+      console.log("My Sheets pulsado.");
+    },
+    logout() {
+      //Aqui, Cazalilla
+      console.log("Logout pulsado.");
     }
   },
   mounted() {
@@ -103,7 +113,8 @@ export default {
     if (item == null) {
       this.userLogged = false;
     } else {
-      this.username = item.data.username;
+      this.username = item.username;
+      this.userLogged = true;
       console.log(item);
     }
   }

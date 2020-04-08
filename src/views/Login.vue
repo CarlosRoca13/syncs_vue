@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <div class="container-all">
       <div class="ctn-form">
         <img src="../img/logo.png" alt="Syncs" class="logo" />
