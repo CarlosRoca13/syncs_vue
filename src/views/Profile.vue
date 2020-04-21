@@ -1,21 +1,14 @@
 <template>
   <div class="main">
     <div class="container-all">
-      <div class="ctn-text">
-        <div class="capa"></div>
-        <h1 class="title-description">Title</h1>
-        <p
-          class="text-description"
-        >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim voluptate, quidem omnis mollitia aliquam recusandae voluptatum architecto quaerat commodi laudantium et, reiciendis nobis non quae. Qui delectus magni cupiditate soluta.</p>
-      </div>
       <div class="ctn-form">
         <img src="../img/logo.png" alt="Syncs" class="logo" />
-        <h1 class="title">Sign up</h1>
+        <h1 class="title">Edit Profile</h1>
         <ValidationObserver for="form" v-slot="{ handleSubmit }">
-          <form name="form" id="form" v-on:submit.prevent="handleSubmit(register)">
+          <form name="form" id="form" v-on:submit.prevent="handleSubmit(saveChanges)">
             <ValidationProvider name="name" rules="required|alpha|min:2|max:30" v-slot="{ errors }">
               <label for="name">Name</label>
-              <input type="text" v-model="input.name" name="name" />
+              <input type="text" v-model="input.name" name="name" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
@@ -24,12 +17,12 @@
               v-slot="{ errors }"
             >
               <label for="lastname">Lastname</label>
-              <input type="text" v-model="input.lastname" name="lastname" />
+              <input type="text" v-model="input.lastname" name="lastname" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider name="email" rules="required|email|max:30" v-slot="{ errors }">
               <label for="email">Email</label>
-              <input v-model="input.email" type="email" name="email" />
+              <input v-model="input.email" type="email" name="email" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
@@ -38,7 +31,7 @@
               v-slot="{ errors }"
             >
               <label for="username">Username</label>
-              <input type="text" v-model="input.username" name="username" />
+              <input type="text" v-model="input.username" name="username" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
@@ -47,52 +40,98 @@
               v-slot="{ errors }"
             >
               <label for="password">Password</label>
-              <input type="password" v-model="input.password" name="password" />
+              <input type="password" v-model="input.password" name="password" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider v-slot="{ errors }" vid="confirmation">
               <label for>Repeat password</label>
-              <input v-model="pass.confirmation" type="password" />
+              <input v-model="pass.confirmation" type="password" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider name="birthday" rules="required" v-slot="{ errors }">
               <label for>birthday</label>
-              <input type="date" name="birthday" v-model="input.birthday" />
+              <input type="date" name="birthday" v-model="input.birthday" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
-
-            <button type="submit">Sign up</button>
+			<div v-if="editInfo==false">
+				<button @click="editData" type="submit">Edit</button>
+			</div>
+			<div v-else>
+				<button type="submit">Save changes</button>
+			</div>
           </form>
         </ValidationObserver>
       </div>
+      <div class="ctn-form">
+		<form name="formDelete" id="formDelete" v-on:submit.prevent="handleSubmit(deleteAccount)">
+			<button type="submit">Delete account</button>
+		</form>
+		</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Register",
+  name: "Profile",
+  methods: {
+	editData(){
+		this.editInfo = !this.editInfo;
+		this.shouldDisable = false;
+	},
+	loadData(){
+		//LLAMAR A ESTA FUNCION CUANDO CARGA LA PAGINA
+		const user = JSON.parse(localStorage.getItem('activeUser'));
+		this.$http.get("http://localhost:8000/api/clients/"+user.id)
+		.then(response => {
+			return response.json()
+		})
+		.then(data => {
+			//this.chartOptions.series[0].data = data;
+			this.input.name = data.data.name;
+			this.input.lastname = data.data.lastname;
+			this.input.email = data.data.email;
+			this.input.username = data.data.username;
+			this.input.password = data.data.password;
+			this.pass.confirmation = data.data.password;
+			this.input.birthday = data.data.birthday;
+		})
+	},
+    saveChanges() {
+		//Metodo para guardar los datos modificados
+		// CAMBIAR a put? actualizar datos de la bbdd a través del id del usuario
+      //this.$http.post("http://localhost:8000/api/clients", this.input);
+      //this.$router.replace({ name: "Login" });
+	},
+	deleteAccount(){
+		//De momento no hace nada, falta que charly haga el backend de esta peticion
+		/*
+		const user = JSON.parse(localStorage.getItem('activeUser'));
+		this.$http.delete("http://localhost:8000/api/clients"+user.id);
+		localStorage.removeItem('activeUser');
+		this.$router.replace({ name: "Home" });*/
+	}
+  },
   data() {
-    return {
-      input: {
-        name: "",
-        lastname: "",
-        email: "",
-        username: "",
-        password: "",
-        verified: "0",
-        birthday: ""
-      },
-      pass: {
-        confirmation: ""
-      }
+	return {
+		input: {
+			name: "",
+			lastname: "",
+			email: "",
+			username: "",
+			password: "",
+			verified: "0",
+			birthday: ""
+		},
+		pass: {
+			confirmation: ""
+		},
+		editInfo: false,
+		shouldDisable: true
     };
   },
-  methods: {
-    register() {
-      this.$http.post("http://localhost:8000/api/clients", this.input);
-      this.$router.replace({ name: "Login" });
-    }
+  mounted(){
+		this.loadData()
   }
 };
 </script>
@@ -107,20 +146,18 @@ export default {
 }
 
 .main {
-  background: linear-gradient(90deg, #bf4222,#bf4222);
-  padding-bottom: 80px;
+  background: linear-gradient(90deg, #bf4222, #183a37);
 }
 
 .container-all {
   width: 100%;
   max-width: 1000px;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 50px;
+  margin-top: 50px;
   display: flex;
+  border-radius: 20px;
   overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 20px;
 }
 
 /* LADO IZQUIERDO */
@@ -205,14 +242,6 @@ button[type="submit"] {
   color: white;
   font-weight: 300;
   font-size: 40px;
-}
-
-.text-description {
-  position: relative;
-  top: 110px;
-  color: white;
-  font-size: 18px;
-  font-weight: 200;
 }
 
 /* RESPONSIVE */

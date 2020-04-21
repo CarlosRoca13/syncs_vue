@@ -52,7 +52,7 @@ export default {
     login: async function login() {
       let logSucc = false;
       const users = await this.$http.get("http://localhost:8000/api/clients");
-      for (const { username, password } of users.data.data) {
+      for (const { id, username, password } of users.data.data) {
         if (
 			username === this.input.username &&
 			password === this.input.password
@@ -60,6 +60,7 @@ export default {
 			const now = new Date();
 			console.log(now);
 			let activeUser = {
+        id: id,
 				username: this.input.username,
 				token:
 				Math.random()
@@ -95,7 +96,7 @@ export default {
 }
 
 .main {
-  background: linear-gradient(90deg, #bf4222, #183a37);
+  background: linear-gradient(90deg, #bf4222,#bf4222);
 }
 .container-all {
   width: 100%;
@@ -105,7 +106,7 @@ export default {
   display: flex;
   border-radius: 20px;
   overflow: hidden;
-  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* LADO IZQUIERDO */
