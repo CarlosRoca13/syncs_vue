@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar app dark style="background-color: #04151f">
+    <v-app-bar app dark style="background-color: #1F1F1F">
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Syncs</v-toolbar-title>
@@ -44,7 +44,7 @@
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer dark app v-model="drawer" style="background-color: #183a37">
+    <v-navigation-drawer dark app v-model="drawer" style="background-color: #38A694">
       <div class="logo">
         <a href="/">
           <v-img src="../assets/syncs.png" width="200"></v-img>

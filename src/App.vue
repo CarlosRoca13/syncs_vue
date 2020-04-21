@@ -1,10 +1,13 @@
 <template>
   <v-app>
     <Navbar/>
-    <v-content class="styleApp">
+    <v-content>
       <router-view class="styleApp"/>
-    </v-content>
-    <Footer/>
+      <Footer/>
+    </v-content> 
+      
+   
+    
   </v-app>
 </template>
 
@@ -26,6 +29,8 @@ export default {
 
 <style>
 .styleApp{
-  background-color: white;
+  background-color: white; 
+  position: relative;
+  min-height: 100vh;
 }
 </style>
