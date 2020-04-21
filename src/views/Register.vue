@@ -107,18 +107,20 @@ export default {
 }
 
 .main {
-  background: linear-gradient(90deg, #bf4222, #183a37);
+  background: linear-gradient(90deg, #bf4222,#bf4222);
+  padding-bottom: 80px;
 }
 
 .container-all {
   width: 100%;
   max-width: 1000px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
+  margin-bottom: 50px;
   display: flex;
-  border-radius: 20px;
   overflow: hidden;
-  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* LADO IZQUIERDO */
