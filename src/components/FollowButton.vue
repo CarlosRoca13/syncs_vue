@@ -15,7 +15,7 @@
         },
         props: {
             user_id: Number,
-            follower_id: String,
+            follower_id: Number,
         },
         methods: {
             follow(){
