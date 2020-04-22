@@ -3,7 +3,7 @@
     <v-app-bar app dark style="background-color: #1F1F1F">
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Syncs</v-toolbar-title>
+      <a class="titleLink" href="/"><v-toolbar-title>Syncs</v-toolbar-title></a>
 
       <v-spacer></v-spacer>
 
@@ -28,7 +28,6 @@
               </v-avatar>
             </div>
           </template>
-
           <v-list class="profileMenuContent">
             <v-list-item
               v-for="item in menuItems"
@@ -56,15 +55,30 @@
       </div>
 
       <v-list class="menu-lateral">
-        <v-list-item v-for="item in items" :key="item.title" :href="item.route">
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+        <v-list-group
+        color="#1F1F1F"
+        v-for="item in items"
+        :key="item.title"
+        v-model="item.active"
+        :prepend-icon="item.icon"
+        no-action
+      >
+        <template v-slot:activator >
+          <v-list-item-content >
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+          </v-list-item-content>
+        </template>
 
+        <v-list-item
+          v-for="subItem in item.items"
+          :key="subItem.title"
+          @click="drawerOptions(subItem.route)"
+        >
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title v-text="subItem.title"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+      </v-list-group>
       </v-list>
     </v-navigation-drawer>
   </nav>
@@ -83,13 +97,12 @@ export default {
       drawer: false,
       menuItems: [
         { title: "Edit Profile", icon: "create", func: "editProfile" },
-        { title: "My Sheets", icon: "music_note", func: "mySheets" },
-        { title: "Create Song", icon: "add", func: "createSong" },
         { title: "Logout", icon: "exit_to_app", func: "logout" }
       ],
       items: [
         { title: "Artists", icon: "people_alt", route: "/artists" },
-        { title: "Sheets", icon: "music_note", route: "/sheets" },
+        { title: "Sheets", icon: "music_note", route: "/sheets", 
+            items:[{title:"Main", route:"main"}, {title:"My Sheets", route:"mySheets"}, {title:"Create Song", route:"createSong"}]},
         { title: "Playlists", icon: "queue_music", route: "/playlists" }
       ]
     };
@@ -101,15 +114,20 @@ export default {
     register() {
       this.$router.replace({ name: "Register" });
     },
+    drawerOptions: function(option){
+      if(option == "mySheets"){
+        this.$router.replace({ name: "Sheets" });
+      }else if(option == "createSong"){
+        this.$router.replace({ name: "SongForm"});
+      }else if(option == "main"){
+        this.$router.replace({ name: "Sheets"});
+      }
+    },
     menuOptions: function(option) {
       if (option == "editProfile") {
         this.$router.replace({ name: "Profile" });
         //console.log("Edit Profile");
-      } else if (option == "mySheets") {
-        console.log("My Sheets");
-      } else if (option == "createSong") {
-        this.$router.replace({ name: "SongForm" });
-      } else if (option == "logout") {
+      }else if (option == "logout") {
         const loggedIn = localStorage.getItem("activeUser");
 
         if (loggedIn) {
@@ -155,5 +173,19 @@ export default {
 }
 .loggedUsername {
   padding-right: 20px;
+}
+
+.titleLink:link {
+  text-decoration: none;
+  color: white;
+}
+
+.titleLink:visited {
+  text-decoration: none;
+  color: white;
+}
+
+.titleLink:hover {
+  color: whitesmoke;
 }
 </style>
