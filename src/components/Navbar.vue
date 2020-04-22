@@ -98,7 +98,8 @@ export default {
     },
     menuOptions: function(option){
       if(option == "editProfile"){
-        console.log("Edit Profile");
+        this.$router.replace({ name: "Profile" });
+        //console.log("Edit Profile");
       }else if(option == "mySheets"){
         console.log("My Sheets");
       }else if(option == "logout"){

@@ -9,6 +9,7 @@ import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import SongForm from "../views/SongForm.vue"
 import Vuex from "vuex"
+import Profile from "../views/Profile.vue"
 
 Vue.use(VueRouter)
 
@@ -73,6 +74,11 @@ const routes = [
     path: "/signup",
     name: "Register",
     component: Register
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile
   }
 ]
 
