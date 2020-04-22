@@ -9,12 +9,12 @@
             <ValidationProvider name="username" rules="required" v-slot="{ errors }">
               <label for="username">Username</label>
               <input type="text" v-model="input.username" name="username" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider name="password" rules="required" v-slot="{ errors }">
               <label for="password">Password</label>
               <input type="password" v-model="input.password" name="password" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
 
             <button type="submit">Login</button>
@@ -27,7 +27,7 @@
       </div>
       <div class="ctn-text">
         <div class="capa"></div>
-        <h1 class="title-description">Title</h1>
+        <h1 class="title-description">Welcome to Syncs!</h1>
         <p
           class="text-description"
         >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim voluptate, quidem omnis mollitia aliquam recusandae voluptatum architecto quaerat commodi laudantium et, reiciendis nobis non quae. Qui delectus magni cupiditate soluta.</p>
@@ -146,7 +146,7 @@ input[type="password"] {
   border: 0px;
   outline: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  color: #183a37  ;
+  color: #1F1F1F  ;
   font-size: 16px;
 }
 
@@ -176,6 +176,10 @@ button[type="submit"] {
   font-weight: 500;
 }
 
+.loginErrors{
+  color: #bf4222;
+  font-style: italic;
+}
 /* LADO DERECHO */
 
 .ctn-text {
@@ -224,5 +228,23 @@ button[type="submit"] {
     width: 100%;
     background: white;
   }
+}
+
+a:link {
+  text-decoration: none;
+  color: #38A694;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #38A694;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
 }
 </style>

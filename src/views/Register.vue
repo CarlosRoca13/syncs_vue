@@ -16,7 +16,7 @@
             <ValidationProvider name="name" rules="required|alpha|min:2|max:30" v-slot="{ errors }">
               <label for="name">Name</label>
               <input type="text" v-model="input.name" name="name" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
               name="lastname"
@@ -25,12 +25,12 @@
             >
               <label for="lastname">Lastname</label>
               <input type="text" v-model="input.lastname" name="lastname" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider name="email" rules="required|email|max:30" v-slot="{ errors }">
               <label for="email">Email</label>
               <input v-model="input.email" type="email" name="email" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
               name="username"
@@ -39,7 +39,7 @@
             >
               <label for="username">Username</label>
               <input type="text" v-model="input.username" name="username" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
               name="password"
@@ -48,17 +48,17 @@
             >
               <label for="password">Password</label>
               <input type="password" v-model="input.password" name="password" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider v-slot="{ errors }" vid="confirmation">
               <label for>Repeat password</label>
               <input v-model="pass.confirmation" type="password" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider name="birthday" rules="required" v-slot="{ errors }">
               <label for>birthday</label>
               <input type="date" name="birthday" v-model="input.birthday" />
-              <span>{{ errors[0] }}</span>
+              <span class="loginErrors">{{ errors[0] }}</span>
             </ValidationProvider>
 
             <button type="submit">Sign up</button>
@@ -107,7 +107,7 @@ export default {
 }
 
 .main {
-  background: linear-gradient(90deg, #bf4222,#bf4222);
+  background: #38A694;
   padding-bottom: 80px;
 }
 
@@ -124,6 +124,10 @@ export default {
 }
 
 /* LADO IZQUIERDO */
+.loginErrors{
+  color: #bf4222;
+  font-style: italic;
+}
 
 .ctn-form {
   width: 80%;
@@ -141,7 +145,7 @@ export default {
   text-align: center;
   margin-top: 20px;
   font-weight: 400;
-  color: #183a37;
+  color: #1F1F1F;
 }
 
 label {
@@ -161,7 +165,7 @@ input[type="date"] {
   border: 0px;
   outline: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  color: #183a37;
+  color: #1F1F1F;
   font-size: 16px;
 }
 

@@ -3,12 +3,12 @@
       <v-app-bar dark>
         <div>
           © 2019-2020 Syncs Company, Inc. ·
-          <a href="#!">Privacy</a>
+          <a class="pyt" href="#!">Privacy</a>
           ·
-          <a href="#!">Terms</a>
+          <a class="pyt" href="#!">Terms</a>
         </div>
         <v-spacer></v-spacer>
-        <div class="text-center">
+        <div class="media-icons">
           <a href="#!" class="footer-social-icon">
             <i class="fab fa-facebook-square social"></i>
           </a>
@@ -22,7 +22,6 @@
             <i class="fab fa-youtube social"></i>
           </a>
         </div>
-        <a href="#">Back to top</a>
       </v-app-bar>
       </footer>
 </template>
@@ -44,8 +43,9 @@ export default {
 .footerBar {
   height: 50px;
 }
-.text-center {
+.media-icons {
   margin: 0 auto;
+  padding-right: 50px;
 }
 .social {
   -webkit-transform: scale(1);
@@ -70,5 +70,23 @@ export default {
   font-size: 30px;
   width: 30px;
   text-decoration: none;
+}
+
+.pyt:link {
+  text-decoration: none;
+  color: #38A694;
+}
+
+.pyt:visited {
+  text-decoration: none;
+  color: #38A694;
+}
+
+.pyt:hover {
+  text-decoration: underline;
+}
+
+.pyt:active {
+  text-decoration: underline;
 }
 </style>

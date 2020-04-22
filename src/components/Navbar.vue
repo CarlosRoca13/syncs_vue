@@ -30,7 +30,11 @@
           </template>
 
           <v-list class="profileMenuContent">
-            <v-list-item v-for="item in menuItems" :key="item.title" @click="menuOptions(item.func)">
+            <v-list-item
+              v-for="item in menuItems"
+              :key="item.title"
+              @click="menuOptions(item.func)"
+            >
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -80,6 +84,7 @@ export default {
       menuItems: [
         { title: "Edit Profile", icon: "create", func: "editProfile" },
         { title: "My Sheets", icon: "music_note", func: "mySheets" },
+        { title: "Create Song", icon: "add", func: "createSong" },
         { title: "Logout", icon: "exit_to_app", func: "logout" }
       ],
       items: [
@@ -96,23 +101,25 @@ export default {
     register() {
       this.$router.replace({ name: "Register" });
     },
-    menuOptions: function(option){
-      if(option == "editProfile"){
+    menuOptions: function(option) {
+      if (option == "editProfile") {
         this.$router.replace({ name: "Profile" });
         //console.log("Edit Profile");
-      }else if(option == "mySheets"){
+      } else if (option == "mySheets") {
         console.log("My Sheets");
-      }else if(option == "logout"){
-        const loggedIn = localStorage.getItem('activeUser');
+      } else if (option == "createSong") {
+        this.$router.replace({ name: "SongForm" });
+      } else if (option == "logout") {
+        const loggedIn = localStorage.getItem("activeUser");
 
-        if(loggedIn){
-          localStorage.removeItem('activeUser')
+        if (loggedIn) {
+          localStorage.removeItem("activeUser");
           this.$router.replace({ name: "Home" });
-          this.$router.go(this.$router.currentRoute)
+          this.$router.go(this.$router.currentRoute);
         }
         console.log("Logout");
       }
-    },
+    }
   },
   mounted() {
     let activeUser = localStorage.getItem("activeUser");

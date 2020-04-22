@@ -3,6 +3,7 @@
     <Navbar/>
     <v-content>
       <router-view class="styleApp"/>
+      <BackToTopButton/>
       <Footer/>
     </v-content> 
       
@@ -14,11 +15,13 @@
 <script>
 import Navbar from './components/Navbar';
 import Footer from "@/components/Footer";
+import BackToTopButton from './components/BackToTopButton';
 export default {
   name: 'App',
   components: {
     Navbar,
-    Footer
+    Footer,
+    BackToTopButton
   },
 
   data: () => ({
