@@ -3,7 +3,7 @@
     <div class="container-all">
       <div class="ctn-text">
         <div class="capa"></div>
-        <h1 class="title-description">Title</h1>
+        <h1 class="title-description">Welcome to Syncs!</h1>
         <p
           class="text-description"
         >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim voluptate, quidem omnis mollitia aliquam recusandae voluptatum architecto quaerat commodi laudantium et, reiciendis nobis non quae. Qui delectus magni cupiditate soluta.</p>
@@ -119,7 +119,7 @@ export default {
   margin-bottom: 50px;
   display: flex;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

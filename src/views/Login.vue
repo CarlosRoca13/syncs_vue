@@ -95,7 +95,7 @@ export default {
 }
 
 .main {
-  background: linear-gradient(90deg, #bf4222,#bf4222);
+  background: linear-gradient(90deg, #38A694,#38A694);
 }
 .container-all {
   width: 100%;
@@ -126,7 +126,7 @@ export default {
   text-align: center;
   margin-top: 20px;
   font-weight: 400;
-  color: #183a37;
+  color: #1F1F1F;
 }
 
 label {
@@ -145,7 +145,7 @@ input[type="password"] {
   border: 0px;
   outline: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  color: #183a37;
+  color: #183a37  ;
   font-size: 16px;
 }
 

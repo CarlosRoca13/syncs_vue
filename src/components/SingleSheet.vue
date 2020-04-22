@@ -128,14 +128,14 @@ export default {
       if (this.like) {
         this.info.likes--;
         this.$http
-          .put("/api/sheets/downlike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).iduser)
+          .put("/api/sheets/downlike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
           .then(response => {
             console.log(response);
           });
       } else {
         this.info.likes++;
         this.$http
-          .put("/api/sheets/uplike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).iduser)
+          .put("/api/sheets/uplike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
           .then(response => {
             console.log(response);
           });
@@ -146,7 +146,7 @@ export default {
         this.dislike = false;
         this.info.dislikes--;
         this.$http
-          .put("/api/sheets/downdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).iduser)
+          .put("/api/sheets/downdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
           .then(response => {
             console.log(response);
           });
@@ -156,14 +156,14 @@ export default {
       if (this.dislike) {
         this.info.dislikes--;
         this.$http
-          .put("/api/sheets/downdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).iduser)
+          .put("/api/sheets/downdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
           .then(response => {
             console.log(response);
           });
       } else {
         this.info.dislikes++;
         this.$http
-          .put("/api/sheets/updislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).iduser)
+          .put("/api/sheets/updislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
           .then(response => {
             console.log(response);
           });
@@ -192,10 +192,10 @@ export default {
       this.info.image =
         "http://localhost:8000/api/sheets/image/" + this.info.id;
     });
-    this.$http.get("/api/sheets/getuserslike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).iduser).then(response =>{ //Todavia no está iduser en el localstorage
+    this.$http.get("/api/sheets/getuserslike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id).then(response =>{ //Todavia no está iduser en el localstorage
       this.like = response.data[0];
     });
-    this.$http.get("/api/sheets/getusersdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).iduser).then(response =>{ //Todavia no está iduser en el localstorage
+    this.$http.get("/api/sheets/getusersdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id).then(response =>{ //Todavia no está iduser en el localstorage
       this.dislike = response.data[0];
     });
   }
