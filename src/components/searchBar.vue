@@ -8,7 +8,7 @@
       placeholder="Search..."
       solo
       :loading="isLoading"
-      item-value="id"
+      :item-value="i => i.id"
       clearable
       style="height:24px"
       background-color="grey darken-3"
@@ -73,9 +73,8 @@ export default {
           this.entries.push({ header: "Songs" });
             for (let item in response.data) {
               if (response.data[item].sheet) {
-                console.log(response.data[item].sheet);
+                console.log("song:",response.data[item].sheet);
                 let res = await this.$http.get("/api/clientsong/"+response.data[item].sheetid)
-                console.log(res.data)
                 
                 this.entries.push({ name: response.data[item].sheet, id: response.data[item].sheetid, type: 'sheets', artist: res.data[0].client});
                 
