@@ -57,9 +57,10 @@ export default {
   },
   methods: {
     validate() {
+      var id = JSON.parse(localStorage.getItem("activeUser")).id;
       const formData = new FormData();
       formData.append("name", this.song.name);
-      formData.append("clients_id", 1); //cojer id de la session
+      formData.append("clients_id", id); //cojer id de la session
       formData.append("description", this.song.description);
       formData.append("key", this.song.key);
       formData.append("main_genre", this.song.maingenre);
