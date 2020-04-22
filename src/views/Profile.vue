@@ -82,10 +82,14 @@ export default {
 	loadData(){
 		//LLAMAR A ESTA FUNCION CUANDO CARGA LA PAGINA
 		const user = JSON.parse(localStorage.getItem('activeUser'));
-		this.$http.get("http://localhost:8000/api/clients/"+user.id)
-		.then(response => {
-			return response.json()
-		})
+		this.$http.get("http://localhost:8000/api/clients/"+user.username)
+		.then((response) => {
+            if(!response.ok) {
+                throw response;
+            }
+
+            return response.json();
+        })
 		.then(data => {
 			//this.chartOptions.series[0].data = data;
 			this.input.name = data.data.name;
