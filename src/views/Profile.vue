@@ -3,7 +3,7 @@
     <div class="container-all">
       <div class="ctn-form">
         <img src="../img/logo.png" alt="Syncs" class="logo" />
-        <h1 class="title">Edit Profile</h1>
+        <button type="button" @click="editData()">Edit profile</button>
         <ValidationObserver for="form" v-slot="{ handleSubmit }">
           <form name="form" id="form" v-on:submit.prevent="handleSubmit(saveChanges)">
             <ValidationProvider name="name" rules="required|alpha|min:2|max:30" v-slot="{ errors }">
@@ -43,30 +43,25 @@
               <input type="password" v-model="input.password" name="password" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" vid="confirmation">
-              <label for>Repeat password</label>
-              <input v-model="pass.confirmation" type="password" :readonly="shouldDisable"/>
-              <span>{{ errors[0] }}</span>
-            </ValidationProvider>
+			<div v-if="editInfo==true">
+				<ValidationProvider v-slot="{ errors }" vid="confirmation">
+				<label for>Repeat password</label>
+				<input v-model="pass.confirmation" type="password" :readonly="shouldDisable"/>
+				<span>{{ errors[0] }}</span>
+				</ValidationProvider>
+			</div>
             <ValidationProvider name="birthday" rules="required" v-slot="{ errors }">
               <label for>birthday</label>
               <input type="date" name="birthday" v-model="input.birthday" :readonly="shouldDisable"/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
-			<div v-if="editInfo==false">
-				<button @click="editData" type="submit">Edit</button>
-			</div>
-			<div v-else>
+			<div v-if="editInfo==true">
 				<button type="submit">Save changes</button>
 			</div>
           </form>
         </ValidationObserver>
+		<button type="button"  @click="deleteAccount()">Delete account</button>
       </div>
-      <div class="ctn-form">
-		<form name="formDelete" id="formDelete" v-on:submit.prevent="handleSubmit(deleteAccount)">
-			<button type="submit">Delete account</button>
-		</form>
-		</div>
     </div>
   </div>
 </template>
@@ -77,58 +72,51 @@ export default {
   methods: {
 	editData(){
 		this.editInfo = !this.editInfo;
-		this.shouldDisable = false;
+		this.shouldDisable = !this.shouldDisable;
 	},
 	loadData(){
 		//LLAMAR A ESTA FUNCION CUANDO CARGA LA PAGINA
 		const user = JSON.parse(localStorage.getItem('activeUser'));
 		this.$http.get("http://localhost:8000/api/clients/"+user.username)
-		.then((response) => {
-            if(!response.ok) {
-                throw response;
-            }
-
-            return response.json();
-        })
-		.then(data => {
-			//this.chartOptions.series[0].data = data;
-			this.input.name = data.data.name;
-			this.input.lastname = data.data.lastname;
-			this.input.email = data.data.email;
-			this.input.username = data.data.username;
-			this.input.password = data.data.password;
-			this.pass.confirmation = data.data.password;
-			this.input.birthday = data.data.birthday;
-		})
+		.then(response => {
+			this.input = response.data[0];
+			this.pass.confirmation = response.data[0].password;
+		});
 	},
     saveChanges() {
-		//Metodo para guardar los datos modificados
-		// CAMBIAR a put? actualizar datos de la bbdd a través del id del usuario
-      //this.$http.post("http://localhost:8000/api/clients", this.input);
-      //this.$router.replace({ name: "Login" });
+		const user = JSON.parse(localStorage.getItem('activeUser'));
+		this.$http.put('http://localhost:8000/api/clients/'+user.id, this.input);
+		this.editInfo = !this.editInfo;
+		this.shouldDisable = !this.shouldDisable;
 	},
 	deleteAccount(){
-		//De momento no hace nada, falta que charly haga el backend de esta peticion
-		/*
-		const user = JSON.parse(localStorage.getItem('activeUser'));
-		this.$http.delete("http://localhost:8000/api/clients"+user.id);
-		localStorage.removeItem('activeUser');
-		this.$router.replace({ name: "Home" });*/
+		if (confirm('Are you sure you want to delete your account?')) {
+			// Save it!
+			const user = JSON.parse(localStorage.getItem('activeUser'));
+			this.$http.delete("http://localhost:8000/api/clients/"+user.id);
+			localStorage.removeItem('activeUser');
+			this.$router.replace({ name: "Home" });
+			this.$router.go(this.$router.currentRoute)
+			console.log('Account deleted.');
+		} else {
+			// Do nothing!
+			console.log('Account not deleted.');
+		}
 	}
   },
   data() {
 	return {
 		input: {
-			name: "",
-			lastname: "",
-			email: "",
-			username: "",
-			password: "",
+			name: null,
+			lastname: null,
+			email: null,
+			username: null,
+			password: null,
 			verified: "0",
-			birthday: ""
+			birthday: null
 		},
 		pass: {
-			confirmation: ""
+			confirmation: null
 		},
 		editInfo: false,
 		shouldDisable: true
@@ -206,7 +194,8 @@ input[type="date"] {
   font-size: 16px;
 }
 
-button[type="submit"] {
+button[type="submit"],
+button[type="button"] {
   width: 100%;
   height: 50px;
   margin-top: 60px;
