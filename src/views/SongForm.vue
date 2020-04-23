@@ -75,8 +75,7 @@ export default {
                   }
         })
         .then(function(response) {
-          window.location.href = 'http://localhost:8080/';
-          console.log(response);
+          window.location.href = 'http://localhost:8080/sheets/'+response.data;
         });
     },
     reset() {
