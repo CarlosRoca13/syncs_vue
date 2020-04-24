@@ -3,7 +3,10 @@
     <div class="container-all">
       <div class="ctn-form">
         <img src="../img/logo.png" alt="Syncs" class="logo" />
-        <button type="button" @click="editData()">Edit profile</button>
+        <center>
+          <div class="optionButtons">
+        <v-btn class="ma-2" color="#38A694" tile dark large @click="editData()"><v-icon left color="white">edit</v-icon>Edit profile</v-btn>
+        <v-btn class="ma-2" color="#1F1F1F" tile dark large><v-icon left color="white">portrait</v-icon>Change Avatar</v-btn></div></center>
         <ValidationObserver for="form" v-slot="{ handleSubmit }">
           <form name="form" id="form" v-on:submit.prevent="handleSubmit(saveChanges)">
             <ValidationProvider name="name" rules="required|alpha|min:2|max:30" v-slot="{ errors }">
@@ -56,11 +59,11 @@
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
 			<div v-if="editInfo==true">
-				<button type="submit">Save changes</button>
+				<v-btn color="#38A694" tile dark large type="submit"><v-icon left color="white">save</v-icon>Save changes</v-btn>
 			</div>
           </form>
         </ValidationObserver>
-		<button type="button"  @click="deleteAccount()">Delete account</button>
+		<button type="button"  @click="deleteAccount()"><v-icon left color="white">delete_forever</v-icon>Delete account</button>
       </div>
     </div>
   </div>
@@ -138,14 +141,14 @@ export default {
 }
 
 .main {
-  background: linear-gradient(90deg, #bf4222, #183a37);
+  background: linear-gradient(90deg, #bf4222, #bf4222);
+  padding-bottom: 100px;
 }
 
 .container-all {
   width: 100%;
   max-width: 1000px;
   margin: auto;
-  margin-top: 50px;
   display: flex;
   border-radius: 20px;
   overflow: hidden;
@@ -158,6 +161,8 @@ export default {
   width: 80%;
   padding: 40px;
   background: #f7f7f7;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .logo {
@@ -190,13 +195,27 @@ input[type="date"] {
   border: 0px;
   outline: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  color: #183a37;
+  color: #1F1F1F;
+  font-size: 16px;
+}
+
+input[type="email"]:read-only,
+input[type="text"]:read-only,
+input[type="password"]:read-only,
+input[type="date"]:read-only {
+  width: 100%;
+  height: 30px;
+  background: rgba(0, 0, 0, 0);
+  border: 0px;
+  outline: 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  color: gray;
   font-size: 16px;
 }
 
 button[type="submit"],
 button[type="button"] {
-  width: 100%;
+  width: 45%;
   height: 50px;
   margin-top: 60px;
   margin-bottom: 30px;
@@ -208,33 +227,8 @@ button[type="button"] {
   font-size: 18px;
 }
 
-/* LADO DERECHO */
-
-.ctn-text {
-  width: 100%;
-  background-image: url("../img/imagen.jpg");
-  background-position: center;
-  background-size: cover;
-  padding: 40px;
-  position: relative;
-}
-
-.capa {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #183a37;
-  opacity: 0.5;
-}
-
-.title-description {
-  position: relative;
-  top: 80px;
-  color: white;
-  font-weight: 300;
-  font-size: 40px;
+.optionButtons{
+  padding-top: 30px;
 }
 
 /* RESPONSIVE */

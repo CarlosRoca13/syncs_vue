@@ -74,9 +74,11 @@
           :key="subItem.title"
           @click="drawerOptions(subItem.route)"
         >
-          <v-list-item-content>
+          
             <v-list-item-title v-text="subItem.title"></v-list-item-title>
-          </v-list-item-content>
+            <v-list-item-action>
+              <v-icon v-text="subItem.icon"></v-icon>
+            </v-list-item-action>
         </v-list-item>
       </v-list-group>
       </v-list>
@@ -96,13 +98,13 @@ export default {
       userLogged: null,
       drawer: false,
       menuItems: [
-        { title: "Edit Profile", icon: "create", func: "editProfile" },
+        { title: "My Profile", icon: "create", func: "editProfile" },
         { title: "Logout", icon: "exit_to_app", func: "logout" }
       ],
       items: [
         { title: "Artists", icon: "people_alt", route: "/artists" },
         { title: "Sheets", icon: "music_note", route: "/sheets", 
-            items:[{title:"Main", route:"main"}, {title:"My Sheets", route:"mySheets"}, {title:"Create Song", route:"createSong"}]},
+            items:[{title:"Main", icon: "graphic_eq", route:"main"}, {title:"My Sheets", icon: "library_music", route:"mySheets"}, {title:"Create Song", icon: "add", route:"createSong"}]},
         { title: "Playlists", icon: "queue_music", route: "/playlists" }
       ]
     };
