@@ -5,8 +5,8 @@
         <img src="../img/logo.png" alt="Syncs" class="logo" />
         <center>
           <div class="optionButtons">
-        <v-btn class="ma-2" color="#38A694" tile dark large @click="editData()"><v-icon left color="white">edit</v-icon>Edit profile</v-btn>
-        <v-btn class="ma-2" color="#1F1F1F" tile dark large><v-icon left color="white">portrait</v-icon>Change Avatar</v-btn></div></center>
+        <v-btn class="ma-2" style="text-transform: capitalize" color="#38A694" tile dark large @click="editData()"><v-icon left color="white">edit</v-icon>Edit profile</v-btn>
+        <v-btn class="ma-2" style="text-transform: capitalize" color="#1F1F1F" tile dark large><v-icon left color="white">portrait</v-icon>Change Avatar</v-btn></div></center>
         <ValidationObserver for="form" v-slot="{ handleSubmit }">
           <form name="form" id="form" v-on:submit.prevent="handleSubmit(saveChanges)">
             <ValidationProvider name="name" rules="required|alpha|min:2|max:30" v-slot="{ errors }">
