@@ -7,6 +7,7 @@
       :search-input.sync="search"
       placeholder="Search..."
       solo
+      :disabled="isLoading"
       :loading="isLoading"
       :item-value="i => i.id"
       clearable
@@ -49,10 +50,13 @@ export default {
 
   methods: {
     async loadEntries() {
-      if (this.isLoading) return
+      if (this.isLoading) 
+        return
+
       this.entries = [];
 
       if (this.queryTerm) {
+        this.entries = [];
         this.isLoading = true
         await this.$http
           .get("/api/search/artist/"+this.queryTerm)
@@ -70,7 +74,7 @@ export default {
         await this.$http
           .get("/api/search/song/"+this.queryTerm)
           .then(async response => {  
-          this.entries.push({ header: "Songs" });
+            this.entries.push({ header: "Songs" });
             for (let item in response.data) {
               if (response.data[item].sheet) {
                 console.log("song:",response.data[item].sheet);
