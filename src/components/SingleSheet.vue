@@ -189,8 +189,10 @@ export default {
     this.$http.get("/api/sheets/" + this.$route.params.id).then(response => {
       console.log(response.data[0]);
       this.info = response.data[0];
-      this.info.image =
-        "http://localhost:8000/api/sheets/image/" + this.info.id;
+      if(this.info.image != null) {
+        this.info.image =
+          "http://localhost:8000/api/sheets/image/" + this.$route.params.id;
+      }
     });
     this.$http.get("/api/sheets/getuserslike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id).then(response =>{ //Todavia no está iduser en el localstorage
       this.like = response.data[0];
