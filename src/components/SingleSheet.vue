@@ -13,37 +13,52 @@
             <v-row>
               <v-col cols="3">
                 {{info.views}}
-                <v-icon class="interactionIcons">visibility</v-icon>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-icon class="interactionIcons" v-on="on">visibility</v-icon>
+                  </template>
+                  <span>Total views</span>
+                </v-tooltip>
               </v-col>
               <v-col cols="3">
                 {{info.likes}}
-                <v-btn icon @click="likeButton">
-                  <v-icon
-                    v-if="like==false"
-                    style="padding-bottom:10px"
-                    class="interactionIcons"
-                  >thumb_up</v-icon>
-                  <v-icon
-                    v-else
-                    style="padding-bottom:10px; color:green"
-                    class="interactionIcons"
-                  >thumb_up</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon @click="likeButton" v-on="on">
+                      <v-icon
+                        v-if="like==false"
+                        style="padding-bottom:10px"
+                        class="interactionIcons"
+                      >thumb_up</v-icon>
+                      <v-icon
+                        v-else
+                        style="padding-bottom:10px; color:green"
+                        class="interactionIcons"
+                      >thumb_up</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Like song</span>
+                </v-tooltip>
               </v-col>
               <v-col cols="2">
                 {{info.dislikes}}
-                <v-btn icon @click="dislikeButton">
-                  <v-icon
-                    v-if="dislike==false"
-                    style="padding-bottom:10px"
-                    class="interactionIcons"
-                  >thumb_down</v-icon>
-                  <v-icon
-                    v-else
-                    style="padding-bottom:10px; color:red"
-                    class="interactionIcons"
-                  >thumb_down</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon @click="dislikeButton" v-on="on">
+                      <v-icon
+                        v-if="dislike==false"
+                        style="padding-bottom:10px"
+                        class="interactionIcons"
+                      >thumb_down</v-icon>
+                      <v-icon
+                        v-else
+                        style="padding-bottom:10px; color:red"
+                        class="interactionIcons"
+                      >thumb_down</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Dislike song</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-col>
@@ -56,10 +71,15 @@
           </v-col>
           <v-col cols="1">
             <div>
-              <v-btn icon @click="favorite">
-                <v-icon v-if="fav==false">favorite_border</v-icon>
-                <v-icon v-else style="color:red">favorite</v-icon>
-              </v-btn>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon @click="favorite" v-on="on">
+                    <v-icon v-if="fav==false">favorite_border</v-icon>
+                    <v-icon v-else style="color:red">favorite</v-icon>
+                  </v-btn>
+                </template>
+                <span>Add to favorites</span>
+              </v-tooltip>
             </div>
           </v-col>
         </v-row>
@@ -83,12 +103,25 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="10">{{info.description}}</v-col>
+      <v-col cols="8">
+        <div class="descriptionContainer">
+          {{info.description}}
+          </div></v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col cols="1" style="display:flex;">
         <div class="instrumentHeader">Instruments</div>
-      </v-col>
+        <div class="addButton" v-if="isCreator()">
+          <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon @click="addInstrument()" v-on="on">
+                    <v-icon >post_add</v-icon>
+                  </v-btn>
+                </template>
+                <span>Add Sheet</span>
+              </v-tooltip>
+        </div>
+      </v-col>  
     </v-row>
     <v-row>
       <InstrumentsAvailables />
@@ -124,29 +157,53 @@ export default {
     favorite() {
       this.fav = !this.fav;
     },
+    isCreator(){
+      if(this.info.username==JSON.parse(localStorage.getItem("activeUser")).username){
+        return true;
+      }else{
+        return false;
+      }
+    },
+    addInstrument(){
+      window.location.href = 'http://localhost:8080/Upload/'+ this.$route.params.id;
+    },
     likeButton() {
       if (this.like) {
         this.info.likes--;
         this.$http
-          .put("/api/sheets/downlike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
+          .put(
+            "/api/sheets/downlike/" +
+              this.$route.params.id +
+              "/" +
+              JSON.parse(localStorage.getItem("activeUser")).id
+          )
           .then(response => {
             console.log(response);
           });
       } else {
         this.info.likes++;
         this.$http
-          .put("/api/sheets/uplike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
+          .put(
+            "/api/sheets/uplike/" +
+              this.$route.params.id +
+              "/" +
+              JSON.parse(localStorage.getItem("activeUser")).id
+          )
           .then(response => {
             console.log(response);
           });
       }
       this.like = !this.like;
-
       if (this.dislike) {
         this.dislike = false;
         this.info.dislikes--;
         this.$http
-          .put("/api/sheets/downdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
+          .put(
+            "/api/sheets/downdislike/" +
+              this.$route.params.id +
+              "/" +
+              JSON.parse(localStorage.getItem("activeUser")).id
+          )
           .then(response => {
             console.log(response);
           });
@@ -156,14 +213,24 @@ export default {
       if (this.dislike) {
         this.info.dislikes--;
         this.$http
-          .put("/api/sheets/downdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
+          .put(
+            "/api/sheets/downdislike/" +
+              this.$route.params.id +
+              "/" +
+              JSON.parse(localStorage.getItem("activeUser")).id
+          )
           .then(response => {
             console.log(response);
           });
       } else {
         this.info.dislikes++;
         this.$http
-          .put("/api/sheets/updislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id)
+          .put(
+            "/api/sheets/updislike/" +
+              this.$route.params.id +
+              "/" +
+              JSON.parse(localStorage.getItem("activeUser")).id
+          )
           .then(response => {
             console.log(response);
           });
@@ -189,17 +256,33 @@ export default {
     this.$http.get("/api/sheets/" + this.$route.params.id).then(response => {
       console.log(response.data[0]);
       this.info = response.data[0];
-      if(this.info.image != null) {
+      if (this.info.image != null) {
         this.info.image =
           "http://localhost:8000/api/sheets/image/" + this.$route.params.id;
       }
     });
-    this.$http.get("/api/sheets/getuserslike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id).then(response =>{ //Todavia no está iduser en el localstorage
-      this.like = response.data[0];
-    });
-    this.$http.get("/api/sheets/getusersdislike/" + this.$route.params.id + "/" + JSON.parse(localStorage.getItem("activeUser")).id).then(response =>{ //Todavia no está iduser en el localstorage
-      this.dislike = response.data[0];
-    });
+    this.$http
+      .get(
+        "/api/sheets/getuserlike/" +
+          this.$route.params.id +
+          "/" +
+          JSON.parse(localStorage.getItem("activeUser")).id
+      )
+      .then(response => {
+        console.log("Liked? " + response.data);
+        this.like = response.data;
+      });
+    this.$http
+      .get(
+        "/api/sheets/getuserdislike/" +
+          this.$route.params.id +
+          "/" +
+          JSON.parse(localStorage.getItem("activeUser")).id
+      )
+      .then(response => {
+        console.log("Disliked? " + response.data);
+        this.dislike = response.data;
+      });
   }
 };
 </script>
@@ -207,7 +290,7 @@ export default {
 <style>
 .main {
   padding: 50px 0px 0px 50px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 .sheetTitle {
   font-size: 48px;
@@ -228,7 +311,15 @@ export default {
   font-size: 20px;
   padding-left: 10px;
 }
+
 .instrumentHeader {
-  font-weight: bold;
+  font-size: 24px;
+  padding-right: 5px;
+}
+.descriptionContainer{
+  height: 400px;
+  padding: 20px;
+  background-color: whitesmoke;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

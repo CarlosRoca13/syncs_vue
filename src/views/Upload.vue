@@ -59,6 +59,7 @@ export default {
         .then(function(response) {
           console.log(response);
         });
+      window.location.href = 'http://localhost:8080/sheets/'+ this.$route.params.id;
     },
     reset() {
       this.$refs.form.reset();

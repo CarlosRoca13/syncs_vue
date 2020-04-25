@@ -34,6 +34,6 @@ export default {
 .styleApp{
   background-color: white; 
   position: relative;
-  min-height: 100vh;
+  min-height: 150vh;
 }
 </style>

@@ -16,17 +16,17 @@
         <v-btn text v-on:click="login()">Login</v-btn>
         <v-btn text v-on:click="register()" outlined>Sign Up</v-btn>
       </div>
+      
       <div v-else>
         <v-menu offset-y class="profileMenu">
           <template v-slot:activator="{ on }">
             <div class="loggedUsername" v-on="on">
               <span class="loggedUsername">{{username}}</span>
               <v-avatar color="#bf4222" size="40">
-                <span class="white--text headline">
                   <v-icon>account_circle</v-icon>
-                </span>
               </v-avatar>
             </div>
+            
           </template>
           <v-list class="profileMenuContent">
             <v-list-item
