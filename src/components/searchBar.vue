@@ -56,7 +56,7 @@ export default {
       this.entries = [];
 
       if (this.queryTerm) {
-        this.entries = [];
+        
         this.isLoading = true
         await this.$http
           .get("/api/search/artist/"+this.queryTerm)
