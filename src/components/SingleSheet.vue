@@ -193,7 +193,7 @@ export default {
             console.log(response);
           });
       }
-      this.like = !this.like;
+      this.like = !this.like; //Cambio de color del icono
       if (this.dislike) {
         this.dislike = false;
         this.info.dislikes--;
@@ -252,7 +252,8 @@ export default {
     InstrumentsAvailables
   },
 
-  mounted() {
+  async mounted() {
+    await this.$http.put("/api/sheets/upview/" + this.$route.params.id);
     this.$http.get("/api/sheets/" + this.$route.params.id).then(response => {
       console.log(response.data[0]);
       this.info = response.data[0];
@@ -282,7 +283,7 @@ export default {
       .then(response => {
         console.log("Disliked? " + response.data);
         this.dislike = response.data;
-      });
+      });   
   }
 };
 </script>

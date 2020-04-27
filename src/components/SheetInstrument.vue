@@ -2,7 +2,7 @@
   <div class="main">
     <v-row>
       <v-col cols="3">
-        <v-row class="songName">{{info.name}}</v-row>
+        <v-row class="songName"><a class="songTitleLink" :href="songUrl">{{info.name}}</a></v-row>
         <v-row class="artistName">{{info.username}}</v-row>
       </v-col>
       <v-col>
@@ -38,7 +38,8 @@ export default {
         image: null
       },
       id: this.$route.params.id,
-      instrument: this.$route.params.instrument
+      instrument: this.$route.params.instrument,
+      songUrl: "http://localhost:8080/sheets/"+ this.$route.params.id
     };
   },
 
@@ -73,5 +74,17 @@ export default {
   font-size: 24px;
   color: grey;
   text-transform: capitalize;
+}
+.songTitleLink:link {
+  text-decoration: none;
+}
+
+.songTitleLink:visited {
+  text-decoration: none;
+}
+
+.songTitleLink:hover {
+  color: whitesmoke;
+  text-decoration: underline;
 }
 </style>

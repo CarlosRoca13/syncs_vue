@@ -5,7 +5,7 @@
         <img src="../img/logo.png" alt="Syncs" class="logo" />
         <center>
           <div class="optionButtons">
-        <v-btn class="ma-2" style="text-transform: capitalize" color="#38A694" tile dark large @click="editData()"><v-icon left color="white">edit</v-icon>Edit profile</v-btn>
+        <v-btn v-if="editInfo==false" class="ma-2" style="text-transform: capitalize" color="#38A694" tile dark large @click="editData()"><v-icon left color="white">edit</v-icon>Edit profile</v-btn>
         <v-btn class="ma-2" style="text-transform: capitalize" color="#1F1F1F" tile dark large><v-icon left color="white">portrait</v-icon>Change Avatar</v-btn></div></center>
         <ValidationObserver for="form" v-slot="{ handleSubmit }">
           <form name="form" id="form" v-on:submit.prevent="handleSubmit(saveChanges)">
@@ -34,7 +34,7 @@
               v-slot="{ errors }"
             >
               <label for="username">Username</label>
-              <input type="text" v-model="input.username" name="username" :readonly="shouldDisable"/>
+              <input type="text" v-model="input.username" name="username" readonly/>
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
@@ -90,7 +90,7 @@ export default {
 		const user = JSON.parse(localStorage.getItem('activeUser'));
 		this.$http.put('http://localhost:8000/api/clients/'+user.id, this.input);
 		this.editInfo = !this.editInfo;
-		this.shouldDisable = !this.shouldDisable;
+    this.shouldDisable = !this.shouldDisable;
 	},
 	deleteAccount(){
 		if (confirm('Are you sure you want to delete your account?')) {
