@@ -44,7 +44,7 @@ export default {
     return {
       valid: true,
       key: ["A", "A#", "Ab", "Am", "A#m", "Abm", "B", "B#", "Bb", "Bm", "B#m", "Bbm", "C", "C#", "Cb", "Cm", "C#m", "Cbm", "D", "D#", "Db", "Dm", "D#m", "Dbm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "F", "F#", "Fb", "Fm", "F#m", "Fbm", "G", "G#", "Gb", "Gm", "G#m", "Gbm"],
-      genres: ["Rock", "Punk", "Blues", "Funk", "Pop", "Techno", "Classic", "Jazz", "Metal", "Death Metal", "Thrash Metal", "Nu Metal", "Power Metal", "Reggae", "Grunge"],
+      genres: ["Blues", "Classic", "Funk", "Grunge", "Jazz", "Metal", "Pop", "Punk", "Reggae", "Reggaeton", "Rock", "Salsa","Techno"],
       song: {
         name: null,
         description: '',
@@ -57,6 +57,7 @@ export default {
   },
   methods: {
     validate() {
+      console.log(this.song.image)
       var id = JSON.parse(localStorage.getItem("activeUser")).id;
       const formData = new FormData();
       formData.append("name", this.song.name);
