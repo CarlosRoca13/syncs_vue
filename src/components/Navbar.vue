@@ -102,10 +102,12 @@ export default {
         { title: "Logout", icon: "exit_to_app", func: "logout" }
       ],
       items: [
-        { title: "Artists", icon: "people_alt", route: "/artists" },
-        { title: "Sheets", icon: "music_note", route: "/sheets", 
-            items:[{title:"Main", icon: "graphic_eq", route:"main"}, {title:"My Sheets", icon: "library_music", route:"mySheets"}, {title:"Create Song", icon: "add", route:"createSong"}]},
-        { title: "Playlists", icon: "queue_music", route: "/playlists" }
+        { title: "Artists", icon: "people_alt",
+            items:[{title:"Main", icon: "graphic_eq", route:"artists"}, {title:"My Artists", icon: "people_outline", route:"artists"}] },
+        { title: "Sheets", icon: "music_note", 
+            items:[{title:"Main", icon: "graphic_eq", route:"sheets"}, {title:"My Sheets", icon: "library_music", route:"sheets"}, {title:"Create Song", icon: "add", route:"createsong"}]},
+        { title: "Playlists", icon: "queue_music",
+            items:[{title:"Main", icon: "graphic_eq", route:"playlists"}, {title:"My Playlists", icon: "library_music", route:"playlists"}] },
       ]
     };
   },
@@ -117,13 +119,7 @@ export default {
       this.$router.replace({ name: "Register" });
     },
     drawerOptions: function(option){
-      if(option == "mySheets"){
-        this.$router.replace({ name: "Sheets" });
-      }else if(option == "createSong"){
-        this.$router.replace({ name: "SongForm"});
-      }else if(option == "main"){
-        this.$router.replace({ name: "Sheets"});
-      }
+      window.location.href = "http://localhost:8080/" + option;
     },
     menuOptions: function(option) {
       if (option == "editProfile") {
