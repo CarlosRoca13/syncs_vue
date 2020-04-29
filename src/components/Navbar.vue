@@ -23,7 +23,10 @@
             <div class="loggedUsername" v-on="on">
               <span class="loggedUsername">{{username}}</span>
               <v-avatar color="#bf4222" size="40">
-                  <v-icon>account_circle</v-icon>
+                  <img
+        :src="avatar"
+        alt="John"
+      >
               </v-avatar>
             </div>
             
@@ -94,6 +97,7 @@ export default {
   },
   data() {
     return {
+      avatar: null,
       username: null,
       userLogged: null,
       drawer: false,
@@ -143,6 +147,7 @@ export default {
     if (item == null) {
       this.userLogged = false;
     } else {
+      this.avatar = "http://localhost:8000/api/clients/avatar/" + item.id,
       this.username = item.username;
       this.userLogged = true;
       console.log(item);
