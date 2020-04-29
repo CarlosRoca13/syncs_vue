@@ -88,7 +88,7 @@ export default {
 	},
     saveChanges() {
 		const user = JSON.parse(localStorage.getItem('activeUser'));
-		this.$http.put('http://localhost:8000/api/clients/'+user.id, this.input);
+		this.$http.post('http://localhost:8000/api/clients/'+user.id, this.input);
 		this.editInfo = !this.editInfo;
     this.shouldDisable = !this.shouldDisable;
 	},
