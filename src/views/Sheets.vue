@@ -34,8 +34,8 @@
     <v-btn class="ma-2" small color="#38A694" dark>More rating</v-btn>
     </div> -->
     <v-row>
-      <div v-for="song in songs" :key="song.id" class="songCard">
-        <v-col v-if="maingenre==null || maingenre=='All'">
+      <div v-for="song in filterSongs" :key="song.id" class="songCard">
+        <v-col>
           <v-card>
             <a @click="changeView(song)">
               <v-img
@@ -52,24 +52,6 @@
             </a>
           </v-card>
         </v-col>
-        <v-col v-if="maingenre!=null && song.maingenre==maingenre">
-          <v-card>
-            <a @click="changeView(song)">
-              <v-img
-                v-if="song.image==null"
-                src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png"
-                width="250"
-              ></v-img>
-              <v-img v-else :src="song.image" width="250" height="250"></v-img>
-            <div class="cardTitle text-center">
-                <v-card-title>{{song.name}}</v-card-title>
-                <v-card-text class='songArtistSubtitle'>{{song.artist}}</v-card-text>
-            </div>
-              
-            </a>
-          </v-card>
-        </v-col>
-
         
       </div>
     </v-row>
@@ -82,32 +64,41 @@ export default {
     data() {
         return {
         currentOrder: 'value',
-        maingenre: null,
-        key: null,
+        maingenre: "All",
+        key: "All",
         songs: [],
 
-        genres: ["All","Blues", "Classic", "Funk", "Grunge", "Jazz", "Metal", "Pop", "Punk", "Reggae", "Reggaeton", "Rock", "Salsa","Techno"],
+        genres: ["All", "Blues", "Classic", "Funk", "Grunge", "Jazz", "Metal", "Pop", "Punk", "Reggae", "Reggaeton", "Rock", "Salsa", "Techno"],
         keys: ["All", "A", "A#", "Ab", "Am", "A#m", "Abm", "B", "B#", "Bb", "Bm", "B#m", "Bbm", "C", "C#", "Cb", "Cm", "C#m", "Cbm", "D", "D#", "Db", "Dm", "D#m", "Dbm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "F", "F#", "Fb", "Fm", "F#m", "Fbm", "G", "G#", "Gb", "Gm", "G#m", "Gbm"],
 
         filters: [{name:"Likes", value:"likes"}, {name:"Views", value:"views"}],
         };
     },
-    methods: {
-    changeView(data){
-    //window.location.replace=data.item.type+'/'+data.item.id
-    window.location.href = 'http://localhost:8080/sheets/'+data.id;
-  
-    },
 
-    toggleOrder(name){
-      this.currentOrder = name;
+    computed: {
+
+      filterSongs: function(){
+        var vm = this;
+        var maingenre = vm.maingenre;
+        var key = vm.key;
+        
+        if(maingenre === 'All' && key === 'All') {
+          return vm.songs;
+        }else{
+          return vm.songs.filter(function(song) {
+            return (maingenre === 'All' || song.maingenre === maingenre) && (key === 'All' || song.key === key);	 
+          });
+        }
+      },
     },
     
-    orderedItems(items){
-      return items.filter(item=>{
-        if (item[this.currentOrder]) return item;
-      });
-    }
+    methods: {
+  
+      changeView(data){
+      //window.location.replace=data.item.type+'/'+data.item.id
+      window.location.href = 'http://localhost:8080/sheets/'+data.id;
+  
+    },
     },
     
     components: {
