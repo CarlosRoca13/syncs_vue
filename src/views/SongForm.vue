@@ -57,7 +57,6 @@ export default {
   },
   methods: {
     validate() {
-      console.log(this.song.image)
       var id = JSON.parse(localStorage.getItem("activeUser")).id;
       const formData = new FormData();
       formData.append("name", this.song.name);
@@ -65,11 +64,12 @@ export default {
       formData.append("description", this.song.description);
       formData.append("key", this.song.key);
       formData.append("main_genre", this.song.maingenre);
-      formData.append("likes", 0);
-      formData.append("dislikes", 0);
       formData.append("views", 0);
       formData.append("downloads", 0);
-      formData.append("image", this.song.image);
+      if (this.song.image != null) {
+        formData.append("image", this.song.image);
+      }
+      console.log(formData);
       this.$http
           .post('/api/sheets', formData, {headers: {
                     'Content-Type': 'multipart/form-data'
