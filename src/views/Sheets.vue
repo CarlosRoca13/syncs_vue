@@ -21,8 +21,6 @@
       <v-col class="d-flex" cols="12" sm="6">
         <v-select
           :items="filters"
-          :item-text="i => i.name"
-          :value="i => i.value"
           v-model="currentOrder"
           label="Order by"
         ></v-select>
@@ -63,7 +61,7 @@ export default {
     name: "Sheets",
     data() {
         return {
-        currentOrder: 'value',
+        currentOrder: null,
         maingenre: "All",
         key: "All",
         songs: [],
@@ -71,7 +69,7 @@ export default {
         genres: ["All", "Blues", "Classic", "Funk", "Grunge", "Jazz", "Metal", "Pop", "Punk", "Reggae", "Reggaeton", "Rock", "Salsa", "Techno"],
         keys: ["All", "A", "A#", "Ab", "Am", "A#m", "Abm", "B", "B#", "Bb", "Bm", "B#m", "Bbm", "C", "C#", "Cb", "Cm", "C#m", "Cbm", "D", "D#", "Db", "Dm", "D#m", "Dbm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "F", "F#", "Fb", "Fm", "F#m", "Fbm", "G", "G#", "Gb", "Gm", "G#m", "Gbm"],
 
-        filters: [{name:"Likes", value:"likes"}, {name:"Views", value:"views"}],
+        filters: ["Downloads", "Views"],
         };
     },
 
@@ -81,14 +79,29 @@ export default {
         var vm = this;
         var maingenre = vm.maingenre;
         var key = vm.key;
+        var order = vm.currentOrder;
+        let result = vm.songs;
         
         if(maingenre === 'All' && key === 'All') {
-          return vm.songs;
+          result = vm.songs;
         }else{
-          return vm.songs.filter(function(song) {
+          result = vm.songs.filter(function(song) {
             return (maingenre === 'All' || song.maingenre === maingenre) && (key === 'All' || song.key === key);	 
           });
         }
+        if(order != null){
+          if(order == 'Views')
+            return result.sort((a, b) => -(a.views-b.views));
+            
+          else if(order == 'Downloads')
+            return result.sort((a, b) => -(a.downloads-b.downloads));
+            
+        }
+
+        return result;
+          
+          
+        
       },
     },
     
@@ -113,9 +126,9 @@ export default {
             let res = await this.$http.get("/api/clientsong/"+response.data[item][i].id)
             console.log(response.data[item][i])
             if(response.data[item][i].image != null){
-              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item][i].id, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views});
+              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item][i].id, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, downloads: response.data[item][i].downloads});
             }else{
-              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: null, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views});
+              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: null, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, downloads: response.data[item][i].downloads});
             }
           }
         }
