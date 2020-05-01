@@ -109,7 +109,7 @@ export default {
         { title: "Artists", icon: "people_alt",
             items:[{title:"Main", icon: "graphic_eq", route:"artists"}, {title:"My Artists", icon: "people_outline", route:"artists"}] },
         { title: "Sheets", icon: "music_note", 
-            items:[{title:"Main", icon: "graphic_eq", route:"sheets"}, {title:"My Sheets", icon: "library_music", route:"sheets"}, {title:"Create Song", icon: "add", route:"createsong"}]},
+            items:[{title:"Main", icon: "graphic_eq", route:"sheets"}, {title:"My Sheets", icon: "library_music", route:"mysheets"}, {title:"Create Song", icon: "add", route:"createsong"}]},
         { title: "Playlists", icon: "queue_music",
             items:[{title:"Main", icon: "graphic_eq", route:"playlists"}, {title:"My Playlists", icon: "library_music", route:"playlists"}] },
       ]

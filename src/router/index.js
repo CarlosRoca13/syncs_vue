@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Upload from '../views/Upload.vue'
 import Sheets from '../views/Sheets'
+import MySheets from '../views/MySheets'
 import SingleSheet from '../components/SingleSheet.vue'
 import SheetInstrument from '../components/SheetInstrument'
 import Login from "../views/Login.vue"
@@ -54,6 +55,11 @@ const routes = [
     path: '/sheets',
     name: 'Sheets',
     component: Sheets
+  },
+  {
+    path: '/mysheets',
+    name: 'MySheets',
+    component: MySheets
   },
   {
     path: '/sheets/:id',
