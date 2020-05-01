@@ -130,15 +130,14 @@ export default {
     this.$http.get("/api/sheets/").then(async response => {
       console.log(response.data);
         for(var item in response.data){
-          for(var i in response.data[item]){
-            let res = await this.$http.get("/api/clientsong/"+response.data[item][i].id)
-            console.log(response.data[item][i])
-            if(response.data[item][i].image != null){
-              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item][i].id, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, likes: response.data[item][i].likes, downloads: response.data[item][i].downloads});
+          console.log(response.data[item])
+            let res = await this.$http.get("/api/clientsong/"+response.data[item].id)
+            console.log(response.data[item] )
+            if(response.data[item].image != null){
+              this.songs.push({id_client: response.data[item].clients_id, id: response.data[item].id, key: response.data[item].key, name: response.data[item].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item].id, artist: res.data[0].client, maingenre: response.data[item].main_genre, views: response.data[item].views, likes: response.data[item].likes, downloads: response.data[item].downloads});
             }else{
-              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: null, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, likes: response.data[item][i].likes, downloads: response.data[item][i].downloads});
+              this.songs.push({id_client: response.data[item].clients_id, id: response.data[item].id, key: response.data[item].key, name: response.data[item].name, image: null, artist: res.data[0].client, maingenre: response.data[item].main_genre, views: response.data[item].views, likes: response.data[item].likes, downloads: response.data[item].downloads});
             }
-          }
         }
     });
   }
