@@ -61,7 +61,7 @@ export default {
     name: "Sheets",
     data() {
         return {
-        currentOrder: null,
+        currentOrder: "None",
         maingenre: "All",
         key: "All",
         songs: [],
@@ -69,7 +69,7 @@ export default {
         genres: ["All", "Blues", "Classic", "Funk", "Grunge", "Jazz", "Metal", "Pop", "Punk", "Reggae", "Reggaeton", "Rock", "Salsa", "Techno"],
         keys: ["All", "A", "A#", "Ab", "Am", "A#m", "Abm", "B", "B#", "Bb", "Bm", "B#m", "Bbm", "C", "C#", "Cb", "Cm", "C#m", "Cbm", "D", "D#", "Db", "Dm", "D#m", "Dbm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "E", "E#", "Eb", "Em", "E#m", "Ebm", "F", "F#", "Fb", "Fm", "F#m", "Fbm", "G", "G#", "Gb", "Gm", "G#m", "Gbm"],
 
-        filters: ["Likes", "Views"],
+        filters: ["None", "Downloads", "Likes", "Views", "Name Asc", "Name Desc"],
         };
     },
 
@@ -89,13 +89,21 @@ export default {
             return (maingenre === 'All' || song.maingenre === maingenre) && (key === 'All' || song.key === key);	 
           });
         }
-        if(order != null){
+        if(order != null || order != 'None'){
           if(order == 'Views')
             return result.sort((a, b) => -(a.views-b.views));
             
-          else if(order == 'Likes')
+          else if(order == 'Downloads')
             return result.sort((a, b) => -(a.downloads-b.downloads));
-            
+
+          else if(order == 'Likes')
+            return result.sort((a, b) => -(a.likes-b.likes));
+
+          else if(order == 'Name Asc')
+            return result.sort((a, b) => a.name.localeCompare(b.name));
+
+          else if(order == 'Name Desc')
+            return result.sort((a, b) => -a.name.localeCompare(b.name));
         }
 
         return result;
