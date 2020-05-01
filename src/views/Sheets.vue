@@ -134,9 +134,9 @@ export default {
             let res = await this.$http.get("/api/clientsong/"+response.data[item][i].id)
             console.log(response.data[item][i])
             if(response.data[item][i].image != null){
-              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item][i].id, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, likes: response.data[item][i].likes});
+              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item][i].id, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, likes: response.data[item][i].likes, downloads: response.data[item][i].downloads});
             }else{
-              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: null, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, likes: response.data[item][i].likes});
+              this.songs.push({id_client: response.data[item][i].clients_id, id: response.data[item][i].id, key: response.data[item][i].key, name: response.data[item][i].name, image: null, artist: res.data[0].client, maingenre: response.data[item][i].main_genre, views: response.data[item][i].views, likes: response.data[item][i].likes, downloads: response.data[item][i].downloads});
             }
           }
         }
