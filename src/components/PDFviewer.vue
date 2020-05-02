@@ -6,7 +6,6 @@
         loading content here...
       </template>
     </pdf>
-    id = {{this.$route.params.id}}
   </div>
 </template>
 
@@ -30,7 +29,7 @@ export default {
   },
   computed: {
     formattedZoom () {
-        return Number.parseInt(this.scale * 100);
+        return Number.parseInt(this.scale * 70);
     },
   },
   mounted () {

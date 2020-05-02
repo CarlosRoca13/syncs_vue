@@ -22,10 +22,9 @@
           <template v-slot:activator="{ on }">
             <div class="loggedUsername" v-on="on">
               <span class="loggedUsername">{{username}}</span>
-              <v-avatar color="#bf4222" size="40">
+              <v-avatar color="transparent" size="40">
                   <img
         :src="avatar"
-        alt="John"
       >
               </v-avatar>
             </div>

@@ -1,30 +1,62 @@
 <template>
-  <v-container>
+  <div class="main">
+    <div class="uploadInstrumentContainer">
+      <span class="display-3">Add an Instrument</span>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <div class="inputDiv">
+          <div class="headline font-weight-light labelTitle"><label>Instrument</label></div>
+          <v-select
+            v-model="sheetinstrument.instruments"
+            :items="instruments"
+            :rules="[v => !!v || 'Instrument is required']"
+            label="Instrument"
+            required
+            solo
+            color="#38A694"
+          ></v-select>
+        </div>
+        <div class="inputDiv">
+          <div class="headline font-weight-light labelTitle"><label>Effects</label></div>
+          <v-select
+            v-model="sheetinstrument.effects"
+            :items="effects"
+            :rules="[v => !!v || 'Effect is required']"
+            label="Effects"
+            required
+            solo
+            color="#38A694"
+          ></v-select>
+        </div>
+        <div class="inputDiv">
+          <div class="headline font-weight-light labelTitle"><label>Sheet Instrument</label></div>
+          <v-file-input v-model="sheetinstrument.pdf" accept=".pdf" label="File input" solo color="#38A694"></v-file-input>
+        </div>
 
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-select
-        v-model="sheetinstrument.instruments"
-        :items="instruments"
-        :rules="[v => !!v || 'Instrument is required']"
-        label="Instrument"
-        required
-      ></v-select>
+        <v-btn
+              :disabled="!valid"
+              class="mr-4"
+              style="text-transform: capitalize"
+              color="#38A694"
+              dark
+              x-large
+              @click="validate"
+            >
+              <v-icon left color="white">edit</v-icon>Add Instrument
+            </v-btn>
 
-      <v-select
-        v-model="sheetinstrument.effects"
-        :items="effects"
-        :rules="[v => !!v || 'Effect is required']"
-        label="Effects"
-        required
-      ></v-select>
-
-      <v-file-input v-model="sheetinstrument.pdf" accept=".pdf" label="File input"></v-file-input>
-
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Accept</v-btn>
-
-      <v-btn color="error" class="mr-4" @click="reset">Reset</v-btn>
-    </v-form>
-  </v-container>
+        <v-btn
+              class="ma-4"
+              style="text-transform: capitalize"
+              color="#bf4222"
+              dark
+              x-large
+              @click="reset"
+            >
+            Reset
+            </v-btn>
+      </v-form>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -41,7 +73,7 @@ export default {
         effects: null,
         pdf: null
       },
-      checkbox: false,
+      checkbox: false
     };
   },
   methods: {
@@ -52,18 +84,39 @@ export default {
       formData.append("effects", this.sheetinstrument.effects);
       formData.append("pdf", this.sheetinstrument.pdf);
       this.$http
-          .post('/api/sheetinstrument', formData, {headers: {
-                    'Content-Type': 'multipart/form-data'
-                  }
+        .post("/api/sheetinstrument", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
         })
         .then(function(response) {
           console.log(response);
         });
-      window.location.href = 'http://localhost:8080/sheets/'+ this.$route.params.id;
+      window.location.href =
+        "http://localhost:8080/sheets/" + this.$route.params.id;
     },
     reset() {
       this.$refs.form.reset();
-    },
-  },
+    }
+  }
 };
 </script>
+<style scoped>
+.uploadInstrumentContainer {
+  margin: auto;
+  width: 75%;
+  border-radius: 20px;
+  padding: 30px;
+}
+.inputDiv {
+  padding-top: 20px;
+}
+.selectContainer {
+  display: inline-block;
+  padding-right: 20px;
+}
+.labelTitle {
+  padding-bottom: 15px;
+  color: #1f1f1f;
+}
+</style>
