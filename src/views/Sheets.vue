@@ -27,14 +27,14 @@
       </v-col>
     </v-row>
     </v-container>
-    <!-- <div class="my-2">
-    <v-btn class="ma-2" small color="#38A694" dark>More views</v-btn>
-    <v-btn class="ma-2" small color="#38A694" dark>More rating</v-btn>
-    </div> -->
+
     <v-row>
       <div v-for="song in filterSongs" :key="song.id" class="songCard">
         <v-col>
-          <v-card>
+          <v-card 
+          class="mx-auto"
+          max-width="344"
+          outlined>
             <a @click="changeView(song)">
               <v-img
                 v-if="song.image==null"
@@ -42,10 +42,14 @@
                 width="250"
               ></v-img>
               <v-img v-else :src="song.image" width="250" height="250"></v-img>
-            <div class="cardTitle text-center">
-                <v-card-title>{{song.name}}</v-card-title>
-                <v-card-text class='songArtistSubtitle'>{{song.artist}}</v-card-text>
-            </div>
+
+              <v-list-item three-line class="cardTitle">
+                <v-list-item-content>
+                <v-list-item-title class="headline mb-1">{{song.name}}</v-list-item-title>
+                <v-list-item-subtitle class="subtitle-2">{{song.artist}}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+
               
             </a>
           </v-card>
@@ -153,9 +157,5 @@ export default {
   background-color: hsla(120, 3%, 20%, 0.281);
   font-size: 24px;
   color: white;
-}
-.songArtistSubtitle{
-  font-size: 18px;
-  color: blue;
 }
 </style>
