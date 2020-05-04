@@ -11,6 +11,8 @@ import Register from "../views/Register.vue"
 import SongForm from "../views/SongForm.vue"
 import Vuex from "vuex"
 import Profile from "../views/Profile.vue"
+import ArtistPublicProfile from "../views/ArtistPublicProfile"
+import Artists from '../views/Artists'
 
 Vue.use(VueRouter)
 
@@ -85,6 +87,16 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile
+  },
+  {
+    path: '/artists',
+    name: 'Artists',
+    component: Artists
+  },
+  {
+    path: "/artistProfile/:id",
+    name: "ArtistProfile",
+    component: ArtistPublicProfile
   }
 ]
 
@@ -96,7 +108,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // redireccionar a login si se intenta acceder a zona protegida
-  const publicPages = ['/login', '/signup', '/', '/sheets/:id/:instrument', '/sheets/:id', '/sheets'];
+  const publicPages = ['/login', '/signup', '/', '/sheets/:id/:instrument', '/sheets/:id', '/sheets', '/artistProfile/:id', ''];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('activeUser');
 
