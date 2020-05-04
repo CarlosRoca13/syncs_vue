@@ -1,25 +1,32 @@
 <template>
-  <div>
-    <v-container fluid>
-    <v-row align="center">
-      <v-col class="d-flex" cols="12" sm="6">
-        <v-select
+  <div class="main">
+    <div style="padding-bottom:20px">
+    <span class="display-3">My Songs</span>
+    </div>
+    <v-container fluid class="filtersContainer">
+      <span class="headline white--text">Filters <v-icon dark>filter_list</v-icon></span>
+    <v-row>
+      <v-col class="d-flex" cols="4">
+        <v-select 
+          dark
           v-model="maingenre"
           :items="genres"
           label="Main genre"
         ></v-select>
       </v-col>
 
-      <v-col class="d-flex" cols="12" sm="6">
+      <v-col class="d-flex" cols="4" >
         <v-select
+          dark
           v-model="key"
           :items="keys"
           label="Key"
         ></v-select>
       </v-col>
 
-      <v-col class="d-flex" cols="12" sm="6">
+      <v-col class="d-flex" cols="4" >
         <v-select
+          dark
           :items="filters"
           v-model="currentOrder"
           label="Order by"
@@ -44,7 +51,7 @@
               <v-img v-else :src="song.image" width="250" height="250"></v-img>
 
               <v-list-item three-line class="cardTitle">
-                <v-list-item-content> 
+                <v-list-item-content>
                 <v-list-item-title class="headline mb-1 white--text">{{song.name}}</v-list-item-title>
                 <v-list-item-subtitle class="subtitle-2 white--text">{{song.artist}}</v-list-item-subtitle>
                 </v-list-item-content>
@@ -158,5 +165,12 @@ export default {
   background-color: hsla(120, 3%, 20%, 0.281);
   font-size: 24px;
   color: white;
+}
+.filtersContainer{
+  background-color: #38A694;
+  margin: initial;
+  width: 60%;
+  border-radius: 10px;
+  padding: 20px;
 }
 </style>
