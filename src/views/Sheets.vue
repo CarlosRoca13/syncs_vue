@@ -142,12 +142,10 @@ export default {
       console.log(response.data);
         for(var item in response.data){
           console.log(response.data[item])
-            let res = await this.$http.get("/api/clientsong/"+response.data[item].id)
-            console.log(response.data[item] )
             if(response.data[item].image != null){
-              this.songs.push({id_client: response.data[item].clients_id, id: response.data[item].id, key: response.data[item].key, name: response.data[item].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item].id, artist: res.data[0].client, maingenre: response.data[item].main_genre, views: response.data[item].views, likes: response.data[item].likes, downloads: response.data[item].downloads});
+              this.songs.push({id_client: response.data[item].clients_id, id: response.data[item].id, key: response.data[item].key, name: response.data[item].name, image: "http://localhost:8000/api/sheets/image/" + response.data[item].id, artist: response.data[item].username, maingenre: response.data[item].main_genre, views: response.data[item].views, likes: response.data[item].likes, downloads: response.data[item].downloads});
             }else{
-              this.songs.push({id_client: response.data[item].clients_id, id: response.data[item].id, key: response.data[item].key, name: response.data[item].name, image: null, artist: res.data[0].client, maingenre: response.data[item].main_genre, views: response.data[item].views, likes: response.data[item].likes, downloads: response.data[item].downloads});
+              this.songs.push({id_client: response.data[item].clients_id, id: response.data[item].id, key: response.data[item].key, name: response.data[item].name, image: null, artist: response.data[item].username, maingenre: response.data[item].main_genre, views: response.data[item].views, likes: response.data[item].likes, downloads: response.data[item].downloads});
             }
         }
     });
