@@ -45,8 +45,8 @@
 
               <v-list-item three-line class="cardTitle">
                 <v-list-item-content>
-                <v-list-item-title class="headline mb-1">{{song.name}}</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-2">{{song.artist}}</v-list-item-subtitle>
+                <v-list-item-title class="headline mb-1 white--text">{{song.name}}</v-list-item-title>
+                <v-list-item-subtitle class="subtitle-2 white--text">{{song.artist}}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
 
