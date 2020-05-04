@@ -1,17 +1,16 @@
 <template>
-  
-    <div>
-      <v-carousel hide-delimiters>
-        <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
-          <div class="carousel-text text-center">
-            <div style="padding-top: 25px">
+  <div>
+    <v-carousel hide-delimiters>
+      <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
+        <div class="carousel-text text-center">
+          <div style="padding-top: 25px">
             <a :href="item.route" style="color: inherit;
-  text-decoration: inherit;">{{item.title}}</a></div>
+  text-decoration: inherit;">{{item.title}}</a>
           </div>
-        </v-carousel-item>
-      </v-carousel>
-    </div>
-  
+        </div>
+      </v-carousel-item>
+    </v-carousel>
+  </div>
 </template>
 
 <script>

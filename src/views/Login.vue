@@ -28,9 +28,6 @@
       <div class="ctn-text">
         <div class="capa"></div>
         <h1 class="title-description">Welcome to Syncs!</h1>
-        <p
-          class="text-description"
-        >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim voluptate, quidem omnis mollitia aliquam recusandae voluptatum architecto quaerat commodi laudantium et, reiciendis nobis non quae. Qui delectus magni cupiditate soluta.</p>
       </div>
     </div>
   </div>

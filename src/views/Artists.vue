@@ -18,7 +18,7 @@
     </v-container>
 
     <v-row>
-      <div v-for="artist in filterArtists" :key="artist.id" class="artistCard">
+      <div v-for="artist in filterArtists" :key="artist.id" style="margin-top:20px">
         <v-col>
           <v-card 
           class="mx-auto"

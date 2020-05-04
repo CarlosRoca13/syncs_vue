@@ -37,11 +37,11 @@
               class="mr-4"
               style="text-transform: capitalize"
               color="#38A694"
-              dark
               x-large
               @click="validate"
             >
-              <v-icon left color="white">edit</v-icon>Add Instrument
+              <v-icon left color="white">edit</v-icon> <span class="white--text">Add Instrument</span>
+              
             </v-btn>
 
         <v-btn
@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       valid: true,
-      instruments: ["Piano", "Guitar", "Battery", "Trumpet"],
+      instruments: ["Piano", "Guitar", "Drums", "Trumpet"],
       effects: ["None", "Item 2", "Item 3", "Item 4"],
       sheetinstrument: {
         sheetid: this.$route.params.id,

@@ -36,7 +36,7 @@
     </v-container>
 
     <v-row>
-      <div v-for="song in filterSongs" :key="song.id" class="songCard">
+      <div v-for="song in filterSongs" :key="song.id" style="margin-top:20px">
         <v-col>
           <v-card 
           class="mx-auto"
