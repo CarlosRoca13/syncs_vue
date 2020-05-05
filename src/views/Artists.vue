@@ -100,7 +100,7 @@ export default {
       console.log(response.data);
         for(var item in response.data){
           console.log(response.data[item])
-            if(response.data[item].image != null){
+            if(response.data[item].avatar != null){
               this.artists.push({id: response.data[item].clients_id, name: response.data[item].username, image: "http://localhost:8000/api/clients/avatar/" + response.data[item].clients_id});
             }else{
               this.artists.push({id: response.data[item].clients_id, name: response.data[item].username, image: null});
