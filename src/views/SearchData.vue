@@ -74,11 +74,11 @@
           outlined>
             <a @click="changeView(artist)">
               <v-img
-                v-if="artist.image==null"
+                v-if="artist.avatar==null"
                 src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png"
                 width="250"
               ></v-img>
-              <v-img v-else :src="artist.image" width="250" height="250"></v-img>
+              <v-img v-else :src="artist.avatar" width="250" height="250"></v-img>
 
               <v-list-item three-line class="cardTitle">
                 <v-list-item-content>
@@ -191,7 +191,7 @@ export default {
               if (response.data[item]) {
                 
                 if(response.data[item].avatar != null){
-                    this.artists.push({id: response.data[item].clientid, name: response.data[item].cliente, avatar: "http://localhost:8000/api/clients/avatar/" + response.data[item].clientid, type: 'artistProfile'});
+                    this.artists.push({id: response.data[item].clientid, name: response.data[item].client, avatar: "http://localhost:8000/api/clients/avatar/" + response.data[item].clientid, type: 'artistProfile'});
                 }else{
                     this.artists.push({id: response.data[item].clientid, name: response.data[item].client, avatar: null, type: 'artistProfile'});
             }
