@@ -1,26 +1,13 @@
 <template>
   <div>
-    <v-autocomplete
-      v-model="queryTerm"
-      :items="entries"
-      :item-text="i => i.name"
-      :search-input.sync="search"
-      placeholder="Search..."
-      solo
-      :disabled="isLoading"
-      :loading="isLoading"
-      :item-value="i => i.id"
-      clearable
-      style="height:24px"
-      background-color="grey darken-3"
-      no-filter
-      @keyup="loadEntries"
-      return-object
-    >
-      <div slot="item" slot-scope="data" v-if="queryTerm" @click="changeView(data.item)">{{ data.item.name }}
+    
+    <v-text-field  v-on:keyup.enter="search(queryTerm)" label="Search..." clearable
+    style="height:24px" v-model="queryTerm" background-color="grey darken-3">
+    </v-text-field>
+    
+      <!-- <div slot="item" slot-scope="data" v-if="queryTerm" @click="changeView(data.item)">{{ data.item.name }}
         <span class="artistSong" v-if="data.item.artist !=null">by {{data.item.artist}}</span>
-      </div>
-    </v-autocomplete>
+      </div> -->
   </div>
 </template>
 
@@ -28,28 +15,12 @@
 export default {
   data() {
     return {
-      newTag: "",
-      entries: [],
       queryTerm: "",
-      isLoading: false,
     };
-  },
-  computed: {
-    search: {
-      get() {
-        return this.queryTerm;
-      },
-
-      set(searchInput) {
-        if (this.queryTerm !== searchInput) {
-          this.queryTerm = searchInput;
-        }
-      }
-    }
   },
 
   methods: {
-    async loadEntries() {
+    /* async loadEntries() {
       if (this.isLoading) 
         return
 
@@ -109,29 +80,24 @@ export default {
 
       }
       
+    }, */
+
+
+    search(data){
+      this.$router.replace({ name: "SearchData", query: {q: data} });
+    
     },
-
-
-  changeView(data){
-    //window.location.replace=data.item.type+'/'+data.item.id
-    window.location.href = 'http://localhost:8080/'+data.type+'/'+data.id;
-  
-  },
 
   }
 
  
 }
+
 </script>
 
 <style>
 .search-bar {
   margin-bottom: 25px;
   width: 300px;
-}
-.artistSong{
-  font-size: 12px;
-  font-style: italic;
-  color: grey;
 }
 </style>
