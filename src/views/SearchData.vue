@@ -215,6 +215,7 @@ export default {
               }
             }
         }).finally(() => (console.log('OK')));
+        this.$forceUpdate();
   }
 };
 </script>

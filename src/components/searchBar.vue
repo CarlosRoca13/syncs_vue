@@ -1,7 +1,7 @@
 <template>
   <div>
     
-    <v-text-field  v-on:keyup.enter="search(queryTerm)" label="Search..." clearable
+    <v-text-field  v-on:keyup.enter="search()" label="Search..." clearable
     style="height:24px" v-model="queryTerm" background-color="grey darken-3">
     </v-text-field>
     
@@ -17,6 +17,11 @@ export default {
     return {
       queryTerm: "",
     };
+  },
+  watch: {
+      '$route.query.q'() {
+            this.search();
+        }
   },
 
   methods: {
@@ -83,9 +88,12 @@ export default {
     }, */
 
 
-    search(data){
-      this.$router.replace({ name: "SearchData", query: {q: data} });
-    
+    search(){
+      this.$forceUpdate();
+      this.$router.go({ name: "SearchData", query: {q: this.queryTerm}});
+      //this.$emit("inputData", this.queryTerm);
+      //this.queryTerm = "";
+
     },
 
   }
