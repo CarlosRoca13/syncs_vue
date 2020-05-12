@@ -18,11 +18,6 @@ export default {
       queryTerm: "",
     };
   },
-  watch: {
-      '$route.query.q'() {
-            this.search();
-        }
-  },
 
   methods: {
     /* async loadEntries() {
@@ -89,7 +84,7 @@ export default {
 
 
     search(){
-      this.$forceUpdate();
+      this.$router.push({ name: "SearchData", query: {q: this.queryTerm}});
       this.$router.go({ name: "SearchData", query: {q: this.queryTerm}});
       //this.$emit("inputData", this.queryTerm);
       //this.queryTerm = "";
