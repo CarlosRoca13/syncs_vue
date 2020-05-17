@@ -78,7 +78,8 @@
                     <v-icon v-else style="color:red">favorite</v-icon>
                   </v-btn>
                 </template>
-                <span>Add to favorites</span>
+                <span v-if="fav==false">Add to favorites</span>
+                <span v-else>Delete to favorites</span>
               </v-tooltip>
             </div>
           </v-col>
@@ -104,24 +105,23 @@
     </v-row>
     <v-row>
       <v-col cols="8">
-        <div class="descriptionContainer">
-          {{info.description}}
-          </div></v-col>
+        <div class="descriptionContainer">{{info.description}}</div>
+      </v-col>
     </v-row>
     <v-row>
       <v-col cols="1" style="display:flex;">
         <div class="instrumentHeader">Instruments</div>
         <div class="addButton" v-if="isCreator()">
           <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn icon @click="addInstrument()" v-on="on">
-                    <v-icon >post_add</v-icon>
-                  </v-btn>
-                </template>
-                <span>Add Sheet</span>
-              </v-tooltip>
+            <template v-slot:activator="{ on }">
+              <v-btn icon @click="addInstrument()" v-on="on">
+                <v-icon>post_add</v-icon>
+              </v-btn>
+            </template>
+            <span>Add Sheet</span>
+          </v-tooltip>
         </div>
-      </v-col>  
+      </v-col>
     </v-row>
     <v-row>
       <InstrumentsAvailables />
@@ -155,17 +155,39 @@ export default {
   },
   methods: {
     favorite() {
-      this.fav = !this.fav;
-    },
-    isCreator(){
-      if(this.info.username==JSON.parse(localStorage.getItem("activeUser")).username){
-        return true;
+      if (this.fav == false) {
+        this.$http
+          .post(
+            "/api/favorite/" +
+              this.$route.params.id +
+              "/" +
+              JSON.parse(localStorage.getItem("activeUser")).id
+          );
+          this.fav = true;
       }else{
+        this.$http
+          .delete(
+            "/api/favorite/" +
+              this.$route.params.id +
+              "/" +
+              JSON.parse(localStorage.getItem("activeUser")).id
+          );
+        this.fav = false;
+      }
+    },
+    isCreator() {
+      if (
+        this.info.username ==
+        JSON.parse(localStorage.getItem("activeUser")).username
+      ) {
+        return true;
+      } else {
         return false;
       }
     },
-    addInstrument(){
-      window.location.href = 'http://localhost:8080/Upload/'+ this.$route.params.id;
+    addInstrument() {
+      window.location.href =
+        "http://localhost:8080/Upload/" + this.$route.params.id;
     },
     likeButton() {
       if (this.like) {
@@ -283,7 +305,18 @@ export default {
       .then(response => {
         console.log("Disliked? " + response.data);
         this.dislike = response.data;
-      });   
+      });
+    this.$http
+      .get(
+        "/api/favorite/" +
+          this.$route.params.id +
+          "/" +
+          JSON.parse(localStorage.getItem("activeUser")).id
+      )
+      .then(response => {
+        console.log("Favorite? " + response.data);
+        this.fav = response.data;
+      });
   }
 };
 </script>
@@ -317,7 +350,7 @@ export default {
   font-size: 24px;
   padding-right: 5px;
 }
-.descriptionContainer{
+.descriptionContainer {
   display: flex;
   flex-direction: column;
   padding: 20px;

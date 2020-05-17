@@ -110,7 +110,7 @@ export default {
         { title: "Sheets", icon: "music_note", 
             items:[{title:"Main", icon: "graphic_eq", route:"sheets"}, {title:"My Sheets", icon: "library_music", route:"mysheets"}, {title:"Create Song", icon: "add", route:"createsong"}]},
         { title: "Playlists", icon: "queue_music",
-            items:[{title:"Main", icon: "graphic_eq", route:"playlists"}, {title:"My Playlists", icon: "library_music", route:"playlists"}] },
+            items:[{title:"Favorites", icon: "favorite", route:"favorites"}] },
       ]
     };
   },

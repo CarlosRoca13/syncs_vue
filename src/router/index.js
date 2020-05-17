@@ -13,6 +13,7 @@ import Vuex from "vuex"
 import Profile from "../views/Profile.vue"
 import ArtistPublicProfile from "../views/ArtistPublicProfile"
 import Artists from '../views/Artists'
+import Favorites from '../views/Favorites'
 
 Vue.use(VueRouter)
 
@@ -97,6 +98,11 @@ const routes = [
     path: "/artistProfile/:id",
     name: "ArtistProfile",
     component: ArtistPublicProfile
+  },
+  {
+    path: "/favorites",
+    name: "Favorites",
+    component: Favorites
   }
 ]
 
