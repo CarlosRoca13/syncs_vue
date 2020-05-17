@@ -14,6 +14,8 @@ import Profile from "../views/Profile.vue"
 import ArtistPublicProfile from "../views/ArtistPublicProfile"
 import Artists from '../views/Artists'
 import Favorites from '../views/Favorites'
+import SearchData from '../views/SearchData'
+
 
 Vue.use(VueRouter)
 
@@ -36,6 +38,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/search',
+    name: 'SearchData',
+    component: SearchData
   },
   {
     path: '/upload/:id',
