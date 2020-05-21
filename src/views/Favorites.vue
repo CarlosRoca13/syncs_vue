@@ -137,6 +137,13 @@ export default {
       filters: ["None", "Downloads", "Likes", "Views", "Name Asc", "Name Desc"]
     };
   },
+
+  methods: {
+    changeView(data) {
+      window.location.href = "http://localhost:8080/sheets/" + data.id;
+    }
+  },
+
   computed: {
     filterSongs: function() {
       var vm = this;
@@ -250,7 +257,7 @@ export default {
   font-size: 24px;
   color: white;
 }
-.marginCard{
+.marginCard {
   margin-top: 20px;
 }
 </style>
