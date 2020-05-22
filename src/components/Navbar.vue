@@ -106,7 +106,7 @@ export default {
       ],
       items: [
         { title: "Artists", icon: "people_alt",
-            items:[{title:"Main", icon: "graphic_eq", route:"artists"}, {title:"My Artists", icon: "people_outline", route:"artists"}] },
+            items:[{title:"Main", icon: "graphic_eq", route:"artists"}, {title:"My Artists", icon: "people_outline", route:"myartists"}] },
         { title: "Sheets", icon: "music_note", 
             items:[{title:"Main", icon: "graphic_eq", route:"sheets"}, {title:"My Sheets", icon: "library_music", route:"mysheets"}, {title:"Create Song", icon: "add", route:"createsong"}]},
         { title: "Playlists", icon: "queue_music",

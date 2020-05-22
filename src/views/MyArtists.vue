@@ -50,7 +50,7 @@
 
 <script>
 export default {
-    name: "Artists",
+    name: "MyArtists",
     data() {
         return {
         currentOrder: "None",
@@ -96,15 +96,22 @@ export default {
     },
 
   mounted() {
-    this.$http.get("/api/artists/").then(async response => {
-      console.log(response.data);
-        for(var item in response.data){
-          console.log(response.data[item])
-            if(response.data[item].avatar != null){
-              this.artists.push({id: response.data[item].clients_id, name: response.data[item].username, image: "http://localhost:8000/api/clients/avatar/" + response.data[item].clients_id});
+    var id = JSON.parse(localStorage.getItem("activeUser")).id;
+    this.$http.get("/api/follows/user/"+id).then(async res => {
+      
+        for(var item in res.data){
+          var id = res.data[item].user_id
+          var username = res.data[item].username
+          
+          this.$http.get("/api/clients/"+res.data[item].username).then(async response =>{
+            if(response.data[0].avatar != null){
+              this.artists.push({id: id, name: username, image: "http://localhost:8000/api/clients/avatar/" + id});
             }else{
-              this.artists.push({id: response.data[item].clients_id, name: response.data[item].username, image: null});
+              this.artists.push({id: id, name: username, image: null});
             }
+
+          });
+           
         }
     });
   }

@@ -13,6 +13,7 @@ import Vuex from "vuex"
 import Profile from "../views/Profile.vue"
 import ArtistPublicProfile from "../views/ArtistPublicProfile"
 import Artists from '../views/Artists'
+import MyArtists from '../views/MyArtists'
 import Favorites from '../views/Favorites'
 import SearchData from '../views/SearchData'
 
@@ -100,6 +101,11 @@ const routes = [
     path: '/artists',
     name: 'Artists',
     component: Artists
+  },
+  {
+    path: '/myartists',
+    name: 'MyArtists',
+    component: MyArtists
   },
   {
     path: "/artistProfile/:id",
