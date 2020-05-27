@@ -127,7 +127,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // redireccionar a login si se intenta acceder a zona protegida
-  const publicPages = ['/login', '/signup', '/', '/sheets/:id/:instrument', '/sheets/:id', '/sheets', '/artistProfile/:id', ''];
+  const publicPages = ['/login', '/signup', '/', '/sheets/:id/:instrument', '/sheets/:id', '/sheets', '/artistProfile/:id', '', '/search', '/artists'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('activeUser');
 
