@@ -42,8 +42,8 @@
           class="mx-auto"
           max-width="344"
           outlined>
-            <a @click="changeView(song)">
-              <v-img
+            <a >
+              <v-img @click="changeView(song)"
                 v-if="song.image==null"
                 src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png"
                 width="250"
@@ -53,9 +53,13 @@
               <v-list-item three-line class="cardTitle">
                 <v-list-item-content>
                 <v-list-item-title class="headline mb-1 white--text">{{song.name}}</v-list-item-title>
-                <v-list-item-subtitle class="subtitle-2 white--text">{{song.artist}}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
+               <v-card-actions>
+              <v-btn text dark @click="eliminate(song)">Eliminate</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn text dark  @click="edit(song)">Edit</v-btn>
+              </v-card-actions>
 
               
             </a>
@@ -129,8 +133,21 @@ export default {
       changeView(data){
       //window.location.replace=data.item.type+'/'+data.item.id
       window.location.href = 'http://localhost:8080/sheets/'+data.id;
+
   
-    },
+    }, 
+
+      eliminate(data){
+        if(confirm("Are you sure?")) {
+          this.$http.delete("api/sheets/"+data.id).then(response => {
+            if(response.status == 200)
+            window.location.href = 'http://localhost:8080/mysheets/';
+          });
+        }
+        
+        
+        
+      }
     },
     
     components: {
