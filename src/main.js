@@ -8,6 +8,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import "./vee-validate";
+import VueSimpleAlert from "vue-simple-alert";
 
 Vue.config.productionTip = false
 /*
@@ -27,6 +28,7 @@ const store = new Vuex.Store(
 );*/
 axios.defaults.baseURL = `http://localhost:8000`
 Vue.prototype.$http = axios
+Vue.use(VueSimpleAlert);
 
 Vue.filter('to-uppercase', function(value){
   return value.toUpperCase();

@@ -56,7 +56,7 @@
                 </v-list-item-content>
               </v-list-item>
                <v-card-actions>
-              <v-btn text dark @click="eliminate(song)">Eliminate</v-btn>
+              <v-btn text dark  @click="eliminate(song)">Eliminate</v-btn>
               <v-spacer></v-spacer>
               <v-btn text dark  @click="edit(song)">Edit</v-btn>
               </v-card-actions>
@@ -72,6 +72,8 @@
 </template>
 
 <script>
+
+
 export default {
     name: "MySheets",
     data() {
@@ -138,12 +140,13 @@ export default {
     }, 
 
       eliminate(data){
-        if(confirm("Are you sure?")) {
+        this.$confirm("Are you sure?").then(()=>{
           this.$http.delete("api/sheets/"+data.id).then(response => {
-            if(response.status == 200)
-            window.location.href = 'http://localhost:8080/mysheets/';
-          });
-        }
+                      if(response.status == 200)
+                      window.location.href = 'http://localhost:8080/mysheets/';
+                    });
+        });
+          
         
         
         
