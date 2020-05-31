@@ -9,6 +9,7 @@ import SheetInstrument from '../components/SheetInstrument'
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import SongForm from "../views/SongForm.vue"
+import EditSongForm from "../views/EditSongForm.vue"
 import Vuex from "vuex"
 import Profile from "../views/Profile.vue"
 import ArtistPublicProfile from "../views/ArtistPublicProfile"
@@ -116,6 +117,11 @@ const routes = [
     path: "/favorites",
     name: "Favorites",
     component: Favorites
+  },
+  {
+    path: '/editSong/:id',
+    name: 'EditSongForm',
+    component: EditSongForm
   }
 ]
 
