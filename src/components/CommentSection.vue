@@ -22,7 +22,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <div v-for="comment in comments" :key="comment">
+    <div v-for="comment in comments" :key="comment.id">
       <v-card class="commentsCards">
         <v-row>
           <v-col cols="10">
@@ -30,10 +30,10 @@
           </v-col>
           <v-col cols="2">
             <center style="margin-top:20px; margin-right:20px;">
-              <!-- <v-avatar color="transparent" size="100">
+              <v-avatar color="transparent" size="100">
                 <img :src="comment.avatar" />
-              </v-avatar> -->
-              <!-- <span>{{comment.username}}</span> -->
+              </v-avatar>
+              <span>{{comment.username}}</span>
             </center>
           </v-col>
         </v-row>
@@ -54,24 +54,25 @@ export default {
     };
   },
   methods:{
-      sendComment(){
-          this.$http.post("/api/comments", 
+      async sendComment(){
+          await this.$http.post("/api/comments", 
           {"clients_id": this.user_id,
           "sheets_id": this.$route.params.id,
           "description": this.textArea,
+          })
+          await this.$http
+          .get("/api/comments/song/" + this.$route.params.id)
+          .then(response => {
+            this.comments = response.data
           });
-          
+          this.textArea = "";
       }
   },
   mounted() {
     this.$http
       .get("/api/comments/song/" + this.$route.params.id)
       .then(response => {
-        console.log(response.data);
-        for(var item in response.data){
-            console.log(item);
-            this.comments.push(item.data);
-        }
+        this.comments = response.data
       });
     let activeUser = localStorage.getItem("activeUser");
     const item = JSON.parse(activeUser);
