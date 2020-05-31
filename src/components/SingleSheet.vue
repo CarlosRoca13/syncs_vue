@@ -126,11 +126,18 @@
     <v-row>
       <InstrumentsAvailables />
     </v-row>
+    <v-row>
+      <div class="commentHeader">Comments</div>
+    </v-row>
+    <v-row>
+      <CommentSection />
+    </v-row>
   </div>
 </template>
 
 <script>
 import InstrumentsAvailables from "./InstrumentsAvailables";
+import CommentSection from "./CommentSection";
 
 export default {
   data() {
@@ -150,28 +157,27 @@ export default {
       },
       like: false,
       dislike: false,
-      fav: false
+      fav: false,
+      comments: []
     };
   },
   methods: {
     favorite() {
       if (this.fav == false) {
-        this.$http
-          .post(
-            "/api/favorite/" +
-              this.$route.params.id +
-              "/" +
-              JSON.parse(localStorage.getItem("activeUser")).id
-          );
-          this.fav = true;
-      }else{
-        this.$http
-          .delete(
-            "/api/favorite/" +
-              this.$route.params.id +
-              "/" +
-              JSON.parse(localStorage.getItem("activeUser")).id
-          );
+        this.$http.post(
+          "/api/favorite/" +
+            this.$route.params.id +
+            "/" +
+            JSON.parse(localStorage.getItem("activeUser")).id
+        );
+        this.fav = true;
+      } else {
+        this.$http.delete(
+          "/api/favorite/" +
+            this.$route.params.id +
+            "/" +
+            JSON.parse(localStorage.getItem("activeUser")).id
+        );
         this.fav = false;
       }
     },
@@ -271,7 +277,8 @@ export default {
     }
   },
   components: {
-    InstrumentsAvailables
+    InstrumentsAvailables,
+    CommentSection
   },
 
   async mounted() {
@@ -349,6 +356,12 @@ export default {
 .instrumentHeader {
   font-size: 24px;
   padding-right: 5px;
+  margin-top: 10px;
+}
+.commentHeader {
+  font-size: 24px;
+  padding-right: 10px;
+  margin-top: 30px;
 }
 .descriptionContainer {
   display: flex;

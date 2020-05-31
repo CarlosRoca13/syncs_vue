@@ -13,6 +13,9 @@
         <v-col class="artistNameContainer" cols="10" sm="2" md="4">
           <span class="display-2 font-weight-light">{{username}}</span>
         </v-col>
+        <v-col>
+          <FollowButton :user_id="this.$route.params.id" :follower_id="this.followerId"/>
+        </v-col>
       </v-row>
       <div style="padding-top:30px">
       <v-divider class="dividerArtist"></v-divider>
@@ -43,6 +46,8 @@
   </div>
 </template>
 <script>
+import FollowButton from "../components/FollowButton";
+
 export default {
   name: "ArtistProfile",
   data() {
@@ -50,8 +55,12 @@ export default {
       username: "",
       search: "",
       avatar: null,
-      sheets: []
+      sheets: [],
+      followerId:JSON.parse(localStorage.getItem("activeUser")).id
     };
+  },
+  components:{
+    FollowButton
   },
   computed: {
     headers() {
