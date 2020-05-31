@@ -12,7 +12,7 @@
 <script>
 export default {
   props: {
-    sheetId: Number,
+    sheetId: String,
     instrument: String
   },
   methods: {

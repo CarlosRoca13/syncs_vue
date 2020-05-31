@@ -10,6 +10,9 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import "./vee-validate";
 import VueSimpleAlert from "vue-simple-alert";
 
+import vueSmoothScroll from 'vue2-smooth-scroll'
+Vue.use(vueSmoothScroll)
+
 Vue.config.productionTip = false
 /*
 Vue.use(Vuex);

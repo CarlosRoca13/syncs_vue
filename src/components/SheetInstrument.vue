@@ -16,16 +16,40 @@
     </v-row>
     <v-row>
       <v-col style="padding-top:50px;">
-      <div class="instrumentContainer">
-        <span class="display-1 font-weight-light instrumentTitle">{{instrument}}</span>
-        <!-- <div effectsTitle>
+        <div class="instrumentContainer">
+          <span class="display-1 font-weight-light instrumentTitle">{{instrument}}
+            <v-btn
+              class="ma-2"
+              v-show="scrollButton"
+              style="text-transform: capitalize"
+              color="#38A694"
+              tile
+              dark
+              large
+              @click="pageScroll()"
+            >
+              <v-icon>play_arrow</v-icon>
+            </v-btn>
+            <v-btn
+              class="ma-2"
+              v-show="!scrollButton"
+              style="text-transform: capitalize"
+              color="#38A694"
+              tile
+              dark
+              large
+              @click="stopPageScroll()"
+            >
+              <v-icon>stop</v-icon>
+            </v-btn>
+          </span>
+          <!-- <div effectsTitle>
           <span class="headline font-weight-light">Effects: </span>
-        </div> -->
-        <pdfviewer />
-      </div>
+          </div>-->
+          <pdfviewer />
+        </div>
       </v-col>
     </v-row>
-    
   </div>
 </template>
 
@@ -36,6 +60,8 @@ import DownloadButton from "./DownloadButton";
 export default {
   data() {
     return {
+      intervalId: null,
+      scrollButton: true,
       info: {
         id: null,
         name: null,
@@ -53,6 +79,22 @@ export default {
       instrument: this.$route.params.instrument,
       songUrl: "http://localhost:8080/sheets/" + this.$route.params.id
     };
+  },
+  methods: {
+    pageScroll() {
+      this.scrollButton = !this.scrollButton;
+      this.intervalId = window.setInterval(() => {
+        // If at page bottom, scroll by to top
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight)
+          window.scrollTo(0, 0);
+        // Scroll 1px down
+        else window.scrollBy(0, 1);
+      }, 25);
+    },
+    stopPageScroll(){
+      this.scrollButton = !this.scrollButton;
+      window.clearInterval(this.intervalId);
+    }
   },
 
   components: {
@@ -108,7 +150,7 @@ export default {
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.effectsTitle{
+.effectsTitle {
   padding-top: 30px;
 }
 </style>
