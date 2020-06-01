@@ -27,9 +27,9 @@
       <div v-for="song in filterSongs" :key="song.id" class="songCard">
         <v-col>
           <v-card class="mx-auto" max-width="344" outlined>
-            <a>
+            <a @click="changeView(song)">
               <v-img
-                @click="changeView(song)"
+                
                 v-if="song.image==null"
                 src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png"
                 width="250"
@@ -41,12 +41,13 @@
                   <v-list-item-title class="headline mb-1 white--text">{{song.name}}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-card-actions>
+              
+            </a>
+            <v-card-actions>
                 <v-btn text dark @click="eliminate(song)">Eliminate</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn text dark @click="edit(song)">Edit</v-btn>
               </v-card-actions>
-            </a>
           </v-card>
         </v-col>
       </div>
@@ -183,6 +184,8 @@ export default {
           if (response.status == 200)
             window.location.href = "http://localhost:8080/mysheets/";
         });
+        
+        
       });
     },
     edit(data) {
