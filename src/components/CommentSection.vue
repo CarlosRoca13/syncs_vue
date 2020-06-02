@@ -25,15 +25,15 @@
     <div v-for="comment in comments" :key="comment.id">
       <v-card class="commentsCards">
         <v-row>
-          <v-col cols="10">
+          <v-col cols="10" class="commentText">
             {{comment.description}}
           </v-col>
           <v-col cols="2">
             <center style="margin-top:20px; margin-right:20px;">
-              <v-avatar color="transparent" size="100">
+              <v-avatar color="transparent" size="100" class="commentAvatar">
                 <img :src="comment.avatar" />
               </v-avatar>
-              <span>{{comment.username}}</span>
+              <span class="commentUsername">{{comment.username}}</span>
             </center>
           </v-col>
         </v-row>
@@ -89,6 +89,7 @@ export default {
 <style scoped>
 .mainWrap {
   width: 60%;
+  padding-left: 20px;
 }
 .commentCard {
   margin-top: 20px;
@@ -104,5 +105,14 @@ export default {
 .commentsCards{
     margin-top: 20px;
     margin-left: 50px;
+}
+.commentText{
+  padding: 20px 0px 0px 40px;
+}
+.commentUsername{
+  font-weight: 500;
+}
+.commentAvatar{
+  margin-bottom: 10px;
 }
 </style>

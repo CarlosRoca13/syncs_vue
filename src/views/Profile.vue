@@ -3,14 +3,14 @@
     <div class="container-all">
       <div class="ctn-form">
         <center>
-        <v-img
-        class="avatarImage"
-          v-if="input.avatar==null"
-          src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png"
-          width="200"
-        ></v-img>
-        <v-img v-else :src="input.avatar" width="200" height="200"></v-img>
-        
+          <v-img
+            class="avatarImage"
+            v-if="input.avatar==null"
+            src="https://i.ya-webdesign.com/images/placeholder-image-png-7.png"
+            width="200"
+          ></v-img>
+          <v-img v-else :src="input.avatar" width="200" height="200"></v-img>
+
           <div class="optionButtons">
             <v-btn
               v-if="editInfo==false"
@@ -26,7 +26,7 @@
             </v-btn>
             <!-- <v-btn class="ma-2" style="text-transform: capitalize" color="#1F1F1F" tile dark large @click="changeAvatar()">
               <v-icon left color="white">portrait</v-icon>Change Avatar
-            </v-btn> -->
+            </v-btn>-->
           </div>
         </center>
         <ValidationObserver for="form" v-slot="{ handleSubmit }">
@@ -81,13 +81,13 @@
               </ValidationProvider>
             </div>
             <ValidationProvider name="birthday" rules="required" v-slot="{ errors }">
-              <label for>birthday</label>
+              <label for>Birthday</label>
               <input type="date" name="birthday" v-model="input.birthday" :readonly="shouldDisable" />
               <span>{{ errors[0] }}</span>
             </ValidationProvider>
             <div v-if="editInfo==true">
-            <label for>Avatar</label>
-            <v-file-input v-model="avatar" accept="image/*" label="Image input" ></v-file-input>
+              <label for>Avatar</label>
+              <v-file-input v-model="avatar" accept="image/*" label="Image input"></v-file-input>
             </div>
             <div v-if="editInfo==true">
               <v-btn color="#38A694" tile dark large type="submit">
@@ -119,7 +119,7 @@ export default {
         avatar: null,
         birthday: null
       },
-      avatar:null,
+      avatar: null,
       pass: {
         confirmation: null
       },
@@ -142,12 +142,9 @@ export default {
           this.pass.confirmation = response.data[0].password;
           if (this.input.avatar != null) {
             this.input.avatar =
-              "http://localhost:8000/api/clients/avatar/" +user.id;
-              
+              "http://localhost:8000/api/clients/avatar/" + user.id;
           }
         });
-        
-        
     },
     saveChanges() {
       const user = JSON.parse(localStorage.getItem("activeUser"));
@@ -157,37 +154,41 @@ export default {
       formData.append("email", this.input.email);
       formData.append("username", this.input.username);
       formData.append("password", this.input.password);
-      if(this.avatar != null){
+      if (this.avatar != null) {
         formData.append("avatar", this.avatar);
       }
       formData.append("birthday", this.input.birthday);
       console.log(formData);
       this.$http.post(
-        "http://localhost:8000/api/clients/" + user.id, formData, {headers: {
-                    'Content-Type': 'multipart/form-data'
-                  }
-        });
+        "http://localhost:8000/api/clients/" + user.id,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      );
       this.editInfo = !this.editInfo;
       this.shouldDisable = !this.shouldDisable;
       this.$router.go(this.$router.currentRoute);
     },
     deleteAccount() {
-      if (confirm("Are you sure you want to delete your account?")) {
-        // Save it!
-        const user = JSON.parse(localStorage.getItem("activeUser"));
-        this.$http.delete("http://localhost:8000/api/clients/" + user.id);
-        localStorage.removeItem("activeUser");
-        this.$router.replace({ name: "Home" });
-        this.$router.go(this.$router.currentRoute);
-        console.log("Account deleted.");
-      } else {
-        // Do nothing!
-        console.log("Account not deleted.");
-      }
+      this.$confirm("Are you sure you want to delete your account?").then(
+        () => {
+          // Save it!
+          const user = JSON.parse(localStorage.getItem("activeUser"));
+          this.$http
+            .delete("http://localhost:8000/api/clients/" + user.id)
+            .then(() => {
+              localStorage.removeItem("activeUser");
+              this.$router.replace({ name: "Home" });
+              this.$router.go(this.$router.currentRoute);
+              console.log("Account deleted.");
+            });
+        }
+      );
     },
-    changeAvatar(){
-      
-    }
+    changeAvatar() {}
   },
   mounted() {
     this.loadData();
@@ -308,7 +309,7 @@ button[type="button"] {
   }
 }
 
-.avatarImage{
+.avatarImage {
   margin: auto;
 }
 </style>

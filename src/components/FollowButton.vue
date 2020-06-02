@@ -9,7 +9,7 @@
         data(){
           return{
               estado: false,
-              nombre: 'Seguir',
+              nombre: 'Follow',
               seguidores: []
           }
         },
@@ -22,7 +22,7 @@
                 if (this.estado){
                     this.$http.delete('/api/follows/'+this.user_id + '/' + this.follower_id)
                     this.estado=false
-                    this.nombre='Seguir'
+                    this.nombre='Follow'
 
                 }
                 else{
@@ -30,7 +30,7 @@
                         user_id: this.user_id,
                         follower_id: this.follower_id
                     })
-                    this.nombre = 'Siguiendo'
+                    this.nombre = 'Following'
                     this.estado=true
                 }
 
@@ -39,10 +39,10 @@
             checkFollow(){
                     this.estado = this.seguidores.includes(this.follower_id)
                     if (this.estado === true ){
-                        this.nombre = 'Siguiendo'
+                        this.nombre = 'Following'
                     }
                     else{
-                        this.nombre='Seguir'
+                        this.nombre='Follow'
                     }
             }
 

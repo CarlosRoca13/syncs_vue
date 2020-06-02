@@ -66,7 +66,7 @@ export default {
     return {
       valid: true,
       instruments: ["Piano", "Guitar", "Drums", "Trumpet"],
-      effects: ["None", "Item 2", "Item 3", "Item 4"],
+      effects: ["None", "Distorsion", "Reverb", "Overdrive", "Delay"],
       sheetinstrument: {
         sheetid: this.$route.params.id,
         instruments: null,

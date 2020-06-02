@@ -360,7 +360,7 @@ export default {
 }
 .commentHeader {
   font-size: 24px;
-  padding-right: 10px;
+  padding-left: 10px;
   margin-top: 30px;
 }
 .descriptionContainer {

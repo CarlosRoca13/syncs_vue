@@ -49,7 +49,7 @@ export default {
     login: async function login() {
       let logSucc = false;
       const users = await this.$http.get("http://localhost:8000/api/clients");
-      for (const { id, username, password } of users.data.data) {
+      for (const { id, username, password } of users.data) {
         if (
 			username === this.input.username &&
 			password === this.input.password
